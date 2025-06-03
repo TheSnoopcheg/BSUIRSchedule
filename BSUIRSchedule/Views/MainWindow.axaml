@@ -1,0 +1,74 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="clr-namespace:BSUIRSchedule.Views"
+		xmlns:lang="clr-namespace:BSUIRSchedule.Langs;assembly=BSUIRSchedule"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="BSUIRSchedule.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="BSUIRSchedule"
+		Background="Transparent"
+		ExtendClientAreaToDecorationsHint="True"
+		ExtendClientAreaChromeHints="NoChrome">
+	<Window.Styles>
+		<Style Selector="Window[WindowState=Maximized]">
+			<Setter Property="Padding" Value="8"/>
+		</Style>
+	</Window.Styles>
+	<Border Background="{DynamicResource Window.Static.Background}">
+		<Grid RowDefinitions="Auto, *">
+			<Grid Height ="35"
+				  Grid.Row="0"
+				  Background="{DynamicResource Window.Static.Title}"
+				  PointerPressed="InputElement_OnPointerPressed">
+				<TextBlock Text="{x:Static lang:Language.MainWindowTitle}"
+						   VerticalAlignment="Center"
+						   HorizontalAlignment="Center"
+						   FontWeight="DemiBold"
+						   Foreground="{DynamicResource Window.Static.TitleText}"/>
+				<StackPanel Orientation="Horizontal"
+							VerticalAlignment="Center"
+							HorizontalAlignment="Right"
+							Margin="0,0,5,0">
+					<Button Theme="{StaticResource ButtonStyle}"
+							Width="25"
+							Height="25"
+							Click="MinimizedButton_Click">
+						<Path Data="{StaticResource minimizeIcon}"
+							  Fill="{DynamicResource Window.Static.TitleText}"
+							  Height="1"
+							  Width="15"
+							  Stretch="Fill"/>
+					</Button>
+					<Button Theme="{StaticResource ButtonStyle}"
+							Width="25"
+							Height="25"
+							Click="MaximizedButton_Click">
+						<Path Data="{StaticResource maximizeIcon}"
+							  Stretch="Fill"
+							  Width="15"
+							  Height="15"
+							  Fill="{DynamicResource Window.Static.TitleText}"/>
+					</Button>
+					<Button Theme="{StaticResource ButtonStyle}"
+							Width="25"
+							Height="25"
+							Click="CloseButton_Click">
+						<Path Data="{StaticResource closeIcon}"
+							  Stretch="Fill"
+							  Width="15"
+							  Height="15"
+							  Fill="{DynamicResource Window.Static.TitleText}"/>
+					</Button>
+				</StackPanel>
+			</Grid>
+			<views:MainView Grid.Row="1"/>
+			<TextBlock Text="DEVBUILD: 0.0.0.2 (03.06.2025)"
+					   Foreground="{DynamicResource TextBlock.Static.Foreground}"
+					   Grid.Row="1"
+					   VerticalAlignment="Bottom"
+					   HorizontalAlignment="Right"/>
+		</Grid>
+	</Border>
+</Window>

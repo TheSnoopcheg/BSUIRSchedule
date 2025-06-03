@@ -1,0 +1,96 @@
+<Style xmlns="https://github.com/avaloniaui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+       xmlns:system="clr-namespace:System;assembly=System.Runtime"
+	   x:Class="BSUIRSchedule.Themes.ColorDictionaries.IISTheme">
+	<Style.Resources>
+		<Color x:Key="IISBlue">#3a547f</Color>
+		<Color x:Key="IISLightBlue">#FF6786B8</Color>
+		<Color x:Key="LightBlue">#E9EDF3</Color>
+		<Color x:Key="DarkBlue">#FFB9C6D7</Color>
+		<Color x:Key="Orange">#FFB900</Color>
+		
+		<Color x:Key="Button1.Background">#FFE9EDF3</Color>
+		<Color x:Key="Button1.Background.MouseOver">#FFD6DAE0</Color>
+		<Color x:Key="Button1.Background.Pressed">#FFC1C5CA</Color>
+		
+		<Color x:Key="TextBox.Border">#FFABADB3</Color>
+		<Color x:Key="TextBox.Border.MouseOver">#FF7EB4EA</Color>
+		<Color x:Key="TextBox.Border.Focus">#FF569DE5</Color>
+
+		<Color x:Key="ListBox.Item.Background.Selected">#FFDCDCDC</Color>
+		<Color x:Key="ListBox.Item.Border.Selected">#FFBEBEBE</Color>
+
+		<Color x:Key="SubWindow.Button.Background.Static">#E9E9E9</Color>
+
+		<Color x:Key="FavoriteBar.Button.External">#FFF5F5F5</Color>
+		<Color x:Key="FavoriteBar.Button.Background.MouseOver">#FFE2E2E2</Color>
+		<Color x:Key="FavoriteBar.Button.Background.Pressed">#FFC4C4C4</Color>
+
+		<Color x:Key="Calendar.Foreground.Static">#FF333333</Color>
+		<Color x:Key="Calendar.DayButton.Background.MouseOver">#FF58729D</Color>
+		<Color x:Key="Calendar.DayButton.Foreground.Inactive">#FF777777</Color>
+		
+		<SolidColorBrush x:Key="Window.Static.Background" Color="White"/>
+		<SolidColorBrush x:Key="Window.Static.Title" Color="{StaticResource IISBlue}"/>
+		<SolidColorBrush x:Key="Window.Static.TitleText" Color="White"/>
+		<SolidColorBrush x:Key="Window.Static.BorderBrush" Color="Black"/>
+		
+		<SolidColorBrush x:Key="SubWindow.Button.Static.Foreground" Color="Black"/>
+		<SolidColorBrush x:Key="SubWindow.Button.Static.Background" Color="{StaticResource SubWindow.Button.Background.Static}"/>
+		
+		<SolidColorBrush x:Key="TextBlock.Static.Foreground" Color="Black"/>
+		
+		<SolidColorBrush x:Key="TextBox.Static.SelectionForeground" Color="White"/>
+		
+		<SolidColorBrush x:Key="Button.MouseOver.Background" Color="Black" Opacity="0.1"/>
+		<SolidColorBrush x:Key="Button.Pressed.Background" Color="Black" Opacity="0.2"/>
+		<SolidColorBrush x:Key="Button1.Static.BorderBrush" Color="Black"/>
+		<SolidColorBrush x:Key="Button1.Static.Foreground" Color="Black"/>
+		<SolidColorBrush x:Key="Button1.Static.Background" Color="{StaticResource Button1.Background}"/>
+		<SolidColorBrush x:Key="Button1.MouseOver.Background" Color="{StaticResource Button1.Background.MouseOver}"/>
+		<SolidColorBrush x:Key="Button1.Pressed.Background" Color="{StaticResource Button1.Background.Pressed}"/>
+		
+		<SolidColorBrush x:Key="FavoriteBar.Static.Background" Color="{StaticResource IISLightBlue}"/>
+		<SolidColorBrush x:Key="FavoriteBar.Button.External.Static" Color="{StaticResource FavoriteBar.Button.External}"/>
+		<SolidColorBrush x:Key="FavoriteBar.Button.Background.Static" Color="White"/>
+		<SolidColorBrush x:Key="FavoriteBar.Button.MouseOver.Background.Static" Color="{StaticResource FavoriteBar.Button.Background.MouseOver}"/>
+		<SolidColorBrush x:Key="FavoriteBar.Button.Pressed.Background.Static" Color="{StaticResource FavoriteBar.Button.Background.Pressed}"/>
+		
+		<SolidColorBrush x:Key="Border.Static.Background" Color="{StaticResource LightBlue}"/>
+		<SolidColorBrush x:Key="Border.Static.BorderBrush" Color="Black"/>
+		<SolidColorBrush x:Key="Border.Static.Title.Background" Color="{StaticResource DarkBlue}"/>
+		<SolidColorBrush x:Key="Border.Static.Title.Separator" Color="{StaticResource IISBlue}" Opacity="0.4"/>
+		
+		<SolidColorBrush x:Key="Icon.Static.Stroke" Color="Black"/>
+		<SolidColorBrush x:Key="Icon.Static.Star.Fill" Color="{StaticResource Orange}"/>
+		
+		<SolidColorBrush x:Key="Notes.HasItemsEllipse.Background" Color="White"/>
+		
+		<SolidColorBrush x:Key="WarningSign.Static.Background" Color="Red"/>
+		<SolidColorBrush x:Key="WarningSign.Static.Text.Foreground" Color="White"/>
+		
+		<SolidColorBrush x:Key="TextBox.Static.Background" Color="White"/>
+		<SolidColorBrush x:Key="TextBox.Static.Foreground" Color="Black"/>
+		<SolidColorBrush x:Key="TextBox.Static.Border" Color="{StaticResource TextBox.Border}"/>
+		<SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="{StaticResource TextBox.Border.MouseOver}"/>
+		<SolidColorBrush x:Key="TextBox.Focus.Border" Color="{StaticResource TextBox.Border.Focus}"/>
+		<SolidColorBrush x:Key="TextBox.Static.Watermark" Color="Black" Opacity="0.6"/>
+		<SolidColorBrush x:Key="TextBox.Static.SelectionBrush" Color="Black" Opacity="0.3"/>
+		
+		<SolidColorBrush x:Key="ListBox.Static.Border" Color="Black"/>
+		<SolidColorBrush x:Key="ListBox.Static.Background" Color="White"/>
+		<SolidColorBrush x:Key="ListBox.Static.Foreground" Color="Black"/>
+		<SolidColorBrush x:Key="ListBox.Item.Static.Background" Color="White"/>
+		<SolidColorBrush x:Key="ListBox.Item.Selected.Background" Color="{StaticResource ListBox.Item.Background.Selected}"/>
+		<SolidColorBrush x:Key="ListBox.Item.Selected.Border" Color="{StaticResource ListBox.Item.Border.Selected}"/>
+		
+		<SolidColorBrush x:Key="Calendar.Static.BorderBrush" Color="{StaticResource IISBlue}"/>
+		<SolidColorBrush x:Key="Calendar.Static.Background" Color="White"/>
+		<SolidColorBrush x:Key="Calendar.Static.Foreground" Color="{StaticResource Calendar.Foreground.Static}"/>
+		<SolidColorBrush x:Key="Calendar.DayButton.Static.Foreground" Color="Black"/>
+		<SolidColorBrush x:Key="Calendar.DayButton.Selected.Foreground" Color="White"/>
+		<SolidColorBrush x:Key="Calendar.DayButton.Inactive.Foreground" Color="{StaticResource Calendar.DayButton.Foreground.Inactive}"/>
+		<SolidColorBrush x:Key="Calendar.DayButton.MouseOver.Background" Color="{StaticResource Calendar.DayButton.Background.MouseOver}" Opacity="0.5"/>
+		<SolidColorBrush x:Key="Calendar.DayButton.Selected.Background" Color="{StaticResource IISBlue}"/>
+	</Style.Resources>
+</Style>

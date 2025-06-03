@@ -1,0 +1,200 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Design.PreviewWith>
+    <Border Padding="20">
+		<Calendar/>
+    </Border>
+  </Design.PreviewWith>
+	
+	<Style Selector="CalendarDayButton">
+		<Setter Property="MinHeight" Value="20"/>
+		<Setter Property="MinWidth" Value="20"/>
+		<Setter Property="Foreground" Value="{DynamicResource Calendar.DayButton.Static.Foreground}"/>
+	</Style>
+	<Style Selector="CalendarDayButton /template/ Border#Border">
+		<Setter Property="Transitions">
+			<Transitions>
+				<BrushTransition Property="Background" Duration="0:0:0.1"/>
+			</Transitions>
+		</Setter>
+	</Style>
+	<Style Selector="CalendarDayButton:pointerover /template/ Border#Border">
+		<Setter Property="Background" Value="{DynamicResource Calendar.DayButton.MouseOver.Background}"/>
+		<Setter Property="BorderThickness" Value="0"/>
+	</Style>
+	<Style Selector="CalendarDayButton:selected">
+		<Setter Property="Background" Value="{DynamicResource Calendar.DayButton.Selected.Background}"/>
+		<Setter Property="Foreground" Value="{DynamicResource Calendar.DayButton.Selected.Foreground}"/>
+	</Style>
+	<Style Selector="CalendarDayButton:inactive">
+		<Setter Property="Foreground" Value="{DynamicResource Calendar.DayButton.Inactive.Foreground}"/>
+	</Style>
+	
+	<Style Selector="CalendarButton">
+		<Setter Property="MinHeight" Value="20"/>
+		<Setter Property="MinWidth" Value="20"/>
+		<Setter Property="Foreground" Value="{DynamicResource Calendar.DayButton.Static.Foreground}"/>
+	</Style>
+	<Style Selector="CalendarButton /template/ Border#Border">
+		<Setter Property="Transitions">
+			<Transitions>
+				<BrushTransition Property="Background" Duration="0:0:0.1"/>
+			</Transitions>
+		</Setter>
+	</Style>
+	<Style Selector="CalendarButton:pointerover /template/ Border#Border">
+		<Setter Property="Background" Value="{DynamicResource Calendar.DayButton.MouseOver.Background}"/>
+		<Setter Property="BorderThickness" Value="0"/>
+	</Style>
+	<Style Selector="CalendarButton:selected">
+		<Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Foreground" Value="{DynamicResource Calendar.DayButton.Selected.Foreground}"/>
+		</Style>
+		<Style Selector="^ /template/ Border#Root">
+			<Setter Property="Background" Value="{DynamicResource Calendar.DayButton.Selected.Background}"/>
+		</Style>
+		<Style Selector="^ /template/ Border#Border">
+			<Setter Property="BorderThickness" Value="0"/>
+		</Style>
+	</Style>
+	<Style Selector="CalendarButton:inactive">
+		<Setter Property="Foreground" Value="{DynamicResource Calendar.DayButton.Inactive.Foreground}"/>
+	</Style>
+
+	<Styles.Resources>
+
+		<ControlTheme x:Key="{x:Type Calendar}" TargetType="Calendar">
+			<Setter Property="Foreground" Value="{DynamicResource Calendar.Static.Foreground}" />
+			<Setter Property="Background" Value="{DynamicResource Calendar.Static.Background}" />
+			<Setter Property="BorderBrush" Value="{DynamicResource Calendar.Static.BorderBrush}" />
+			<Setter Property="BorderThickness" Value="1" />
+			<Setter Property="HorizontalAlignment" Value="Left" />
+			<Setter Property="VerticalAlignment" Value="Center" />
+			<Setter Property="FontSize" Value="12" />
+			<Setter Property="Template">
+				<ControlTemplate>
+					<StackPanel
+						Name="PART_Root"
+						HorizontalAlignment="Center"
+						ClipToBounds="True">
+						<CalendarItem
+							Name="PART_CalendarItem"
+							Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							BorderThickness="{TemplateBinding BorderThickness}"
+							CornerRadius="{TemplateBinding CornerRadius}"
+							HeaderBackground="{TemplateBinding HeaderBackground}" />
+					</StackPanel>
+				</ControlTemplate>
+			</Setter>
+		</ControlTheme>
+		
+		<ControlTheme x:Key="{x:Type CalendarItem}" TargetType="CalendarItem">
+			<Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
+			<Setter Property="DayTitleTemplate">
+				<Template x:DataType="x:String">
+					<TextBlock Text="{Binding}"
+							   HorizontalAlignment="Center"
+							   VerticalAlignment="Center"
+							   FontSize="{DynamicResource CalendarDayButtonFontSize}" />
+				</Template>
+			</Setter>
+
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Border BorderThickness="{TemplateBinding BorderThickness}"
+							Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							CornerRadius="{TemplateBinding CornerRadius}">
+						<Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" RowDefinitions="30,*" MinWidth="154">
+							<Grid ColumnDefinitions="5*,*,*">
+								<Button Name="PART_HeaderButton"
+										Theme="{StaticResource FluentCalendarButton}"
+										Foreground="{TemplateBinding Foreground}"
+										Padding="5,0,0,0"
+										HorizontalContentAlignment="Left" />
+								<Button Name="PART_PreviousButton"
+										Grid.Column="1"
+										Theme="{StaticResource FluentCalendarButton}"
+										Foreground="{TemplateBinding Foreground}"
+										Padding="1"
+										Width="15"
+										HorizontalContentAlignment="Left">
+									<Path Stroke="{DynamicResource CalendarViewForeground}"
+										  StrokeThickness="1.5"
+										  Data="M 0,9 L 9,0 L 18,9"
+										  Stretch="Uniform"
+										  HorizontalAlignment="Center"
+										  VerticalAlignment="Center" />
+								</Button>
+								<Button Name="PART_NextButton"
+										Grid.Column="2"
+										Theme="{StaticResource FluentCalendarButton}"
+										Foreground="{TemplateBinding Foreground}"
+										Padding="1"
+										Width="15"
+										HorizontalContentAlignment="Left">
+									<Path Stroke="{DynamicResource CalendarViewForeground}"
+										  StrokeThickness="1.5"
+										  Data="M 0,0 L 9,9 L 18,0"
+										  Stretch="Uniform"
+										  HorizontalAlignment="Center"
+										  VerticalAlignment="Center" />
+								</Button>
+							</Grid>
+							<Border Name="BackgroundLayer" 
+									Background="{TemplateBinding Background}" 
+									Margin="0,0,0,0" 
+									IsVisible="{Binding #PART_MonthView.IsVisible}" 
+									Grid.Row="1" />
+							<Grid Name="PART_MonthView" Grid.Row="1" IsVisible="False" MinHeight="154">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="20" />
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+								</Grid.RowDefinitions>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition Width="Auto" />
+								</Grid.ColumnDefinitions>
+							</Grid>
+							<Grid Name="PART_YearView"
+								  Background="{TemplateBinding Background}"
+								  MinHeight="154"
+								  Grid.Row="1"
+								  IsVisible="False">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="*" />
+									<RowDefinition Height="*" />
+									<RowDefinition Height="*" />
+								</Grid.RowDefinitions>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="*" />
+								</Grid.ColumnDefinitions>
+							</Grid>
+						</Grid>
+					</Border>
+				</ControlTemplate>
+			</Setter>
+			<Style Selector="^ /template/ Button:pointerover > Path">
+				<Setter Property="Stroke" Value="{DynamicResource CalendarViewNavigationButtonForegroundPointerOver}" />
+			</Style>
+			<Style Selector="^ /template/ Button:pressed > Path">
+				<Setter Property="Stroke" Value="{DynamicResource CalendarViewNavigationButtonForegroundPressed}" />
+			</Style>
+		</ControlTheme>
+	</Styles.Resources>
+	
+</Styles>

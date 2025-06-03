@@ -1,0 +1,200 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:lang="clr-namespace:BSUIRSchedule.Langs"
+        xmlns:vm="using:BSUIRSchedule.ViewModels"
+        xmlns:controls="using:BSUIRSchedule.Controls"
+		xmlns:types="using:BSUIRSchedule.Classes"
+		mc:Ignorable="d"
+        x:Class="BSUIRSchedule.Views.AnnouncementWindow"
+		Height="450"
+		Width="800"
+		Background="Transparent"
+		WindowStartupLocation="CenterScreen"
+		ExtendClientAreaChromeHints="NoChrome"
+		ExtendClientAreaToDecorationsHint="True"
+		ShowInTaskbar="False"
+		CanResize="False"
+		x:DataType="vm:AnnouncementViewModel"
+		PointerPressed="Window_PointerPressed">
+	
+	<Window.Resources>
+		<DataTemplate x:Key="AnnouncementTemplate" x:DataType="types:Announcement">
+			<Grid Margin="0,10,0,10"
+				  MaxHeight="100"
+				  ColumnDefinitions="100,100,*,200">
+				<StackPanel Orientation="Vertical"
+							Grid.Column="0"
+							HorizontalAlignment="Center"
+							VerticalAlignment="Center">
+					<TextBlock Text="{Binding Path=date}"
+							   Foreground="{DynamicResource TextBlock.Static.Foreground}"
+							   HorizontalAlignment="Center"
+							   FontWeight="DemiBold"/>
+					<TextBlock HorizontalAlignment="Center"
+							   Foreground="{DynamicResource TextBlock.Static.Foreground}">
+						<TextBlock.Text>
+							<MultiBinding StringFormat="{}({0} - {1})">
+								<Binding Path="startTime"/>
+								<Binding Path="endTime"/>
+							</MultiBinding>
+						</TextBlock.Text>
+					</TextBlock>
+				</StackPanel>
+				<TextBlock Grid.Column="1"
+						   Text="{Binding Path=auditory}"
+						   Foreground="{DynamicResource TextBlock.Static.Foreground}"
+						   HorizontalAlignment="Center"
+						   VerticalAlignment="Center"/>
+				<TextBlock Grid.Column="1"
+						   Text="{Binding Path=content}"
+						   Foreground="{DynamicResource TextBlock.Static.Foreground}"
+						   HorizontalAlignment="Center"
+						   VerticalAlignment="Center"
+						   TextWrapping="Wrap"/>
+				<TextBlock Grid.Column="1"
+						   Text="TODO: EMPLOYEE/GROUP"
+						   Foreground="{DynamicResource TextBlock.Static.Foreground}"
+						   HorizontalAlignment="Center"
+						   VerticalAlignment="Center"
+						   TextWrapping="Wrap"/>
+				
+			</Grid>
+		</DataTemplate>
+	</Window.Resources>
+	<Border CornerRadius="10"
+			BorderThickness="1"
+			Background="{DynamicResource Window.Static.Background}"
+			BorderBrush="{DynamicResource Window.Static.BorderBrush}">
+		<Grid RowDefinitions="50,*">
+			<TextBlock VerticalAlignment="Center"
+					   Foreground="{DynamicResource TextBlock.Static.Foreground}"
+					   Margin="10"
+					   FontSize="16"
+					   FontWeight="DemiBold"
+					   Classes.employee="{Binding IsEmployeeAnnouncement}"
+					   Grid.Row="0">
+				<TextBlock.Styles>
+					<Style Selector="TextBlock">
+						<Setter Property="Text">
+							<MultiBinding StringFormat="{}{0} {1}">
+								<Binding Source="{x:Static lang:Language.GroupAnnouncements}"/>
+								<Binding Path="Title"/>
+							</MultiBinding>
+						</Setter>
+					</Style>
+					<Style Selector="TextBlock.employee">
+						<Setter Property="Text">
+							<MultiBinding StringFormat="{}{0} {1}">
+								<Binding Source="{x:Static lang:Language.Announcements}"/>
+								<Binding Path="Title"/>
+							</MultiBinding>
+						</Setter>
+					</Style>
+				</TextBlock.Styles>
+			</TextBlock>
+			<Button Height="30"
+					Width="30"
+					HorizontalAlignment="Right"
+					VerticalAlignment="Center"
+					Margin="10"
+					Grid.Row="0"
+					Theme="{StaticResource ButtonStyle}"
+					Click="CloseButton_Click">
+				<Path Data="{StaticResource closeIcon}"
+					  Stretch="Fill"
+					  Width="15"
+					  Height="15"
+					  Fill="{DynamicResource Icon.Static.Stroke}"/>
+			</Button>
+
+			<Border Grid.Row="1"
+					CornerRadius="10"
+					Background="{DynamicResource Border.Static.Background}"
+					Margin="10">
+				<Grid RowDefinitions="50,*">
+					<Border Grid.Row="0"
+							Background="{DynamicResource Border.Static.Title.Background}"
+							CornerRadius="10,10,0,0">
+						<Grid ColumnDefinitions="100, 100, *, 200">
+							<TextBlock Text="{x:Static lang:Language.Date}"
+                                       Foreground="{DynamicResource TextBlock.Static.Foreground}"
+                                       Grid.Column="0"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontSize="14"
+                                       FontWeight="DemiBold"/>
+							<controls:VerticalSeparator Grid.Column="0"
+														Height="30"
+														HorizontalAlignment="Right"/>
+							<TextBlock Text="{x:Static lang:Language.Auditorium}"
+                                       Foreground="{DynamicResource TextBlock.Static.Foreground}"
+                                       Grid.Column="1"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontSize="14"
+                                       FontWeight="DemiBold"/>
+							<controls:VerticalSeparator Grid.Column="1"
+														Height="30"
+														HorizontalAlignment="Right"/>
+							<TextBlock Text="{x:Static lang:Language.Announcement}"
+                                       Foreground="{DynamicResource TextBlock.Static.Foreground}"
+                                       Grid.Column="2"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontSize="14"
+                                       FontWeight="DemiBold"/>
+							<controls:VerticalSeparator Grid.Column="2"
+														Height="30"
+														HorizontalAlignment="Right"/>
+							<TextBlock Grid.Column="3"
+                                       Foreground="{DynamicResource TextBlock.Static.Foreground}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontSize="14"
+									   Classes.employee="{Binding IsEmployeeAnnouncement}"
+                                       FontWeight="DemiBold">
+								<TextBlock.Styles>
+									<Style Selector="TextBlock">
+										<Setter Property="Text" Value="{x:Static lang:Language.Teacher}"/>
+									</Style>
+									<Style Selector="TextBlock.employee">
+										<Setter Property="Text" Value="{x:Static lang:Language.Groups}"/>
+									</Style>
+								</TextBlock.Styles>
+							</TextBlock>
+						</Grid>
+					</Border>
+
+					<ItemsControl ItemsSource="{Binding Path=Announcements}"
+								  Theme="{StaticResource VerticalItemsControl}"
+								  Grid.Row="1"
+								  ScrollViewer.VerticalScrollBarVisibility="Auto">
+						<ItemsControl.ItemsPanel>
+							<ItemsPanelTemplate>
+								<StackPanel Orientation="Vertical"/>
+							</ItemsPanelTemplate>
+						</ItemsControl.ItemsPanel>
+					</ItemsControl>
+
+					<StackPanel Orientation="Vertical"
+								Grid.Row="1"
+								VerticalAlignment="Center"
+								HorizontalAlignment="Center">
+						<Path Fill="{DynamicResource Icon.Static.Stroke}"
+							  Stretch="Fill"
+							  Height="125"
+							  Width="125"
+							  Data="{StaticResource documentsIcon}"/>
+						<TextBlock Text="{x:Static lang:Language.NoAds}"
+								   Foreground="{DynamicResource TextBlock.Static.Foreground}"
+								   HorizontalAlignment="Center"
+								   FontWeight="DemiBold"
+								   Margin="0,5,0,0"/>
+					</StackPanel>
+				</Grid>
+			</Border>
+		</Grid>
+	</Border>
+</Window>

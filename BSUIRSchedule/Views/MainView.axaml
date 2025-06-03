@@ -1,0 +1,271 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:BSUIRSchedule.ViewModels"
+			 xmlns:controls="clr-namespace:BSUIRSchedule.Controls;assembly=BSUIRSchedule"
+			 xmlns:converters="clr-namespace:BSUIRSchedule.Converters;assembly=BSUIRSchedule"
+			 xmlns:asyncImage="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="BSUIRSchedule.Views.MainView"
+             x:DataType="vm:IMainViewModel">
+	<Grid ColumnDefinitions="Auto,*">
+		<Grid Grid.Column="0"
+			  Width="60"
+			  Background="{DynamicResource FavoriteBar.Static.Background}"
+			  RowDefinitions="60,*,60">
+
+			<!-- TODO: style this type of button -->
+			<Button Grid.Row="0"
+					Height="40"
+					Width="40"
+					VerticalAlignment="Center"
+					HorizontalAlignment="Center"
+					Command="{Binding SearchSchedule}"
+					CornerRadius="20">
+				<Path Data="{StaticResource searchIcon}"
+					  Stretch="Fill"
+					  Width="25"
+					  Height="25"
+					  Fill="{DynamicResource Icon.Static.Stroke}"/>
+			</Button>
+
+			<Separator Grid.Row="0" VerticalAlignment="Bottom" Margin="0"/>
+
+			<Grid Grid.Row="1"
+				  HorizontalAlignment="Stretch"
+				  RowDefinitions="Auto, *">
+				<controls:RoundButton Margin="0,5,0,0"
+									  Classes="static">
+					<Path Height="20"
+						  Width="20"
+						  VerticalAlignment="Center"
+						  HorizontalAlignment="Center"
+						  Stretch="Fill"
+						  Fill="{DynamicResource Icon.Static.Stroke}"
+						  Data="{StaticResource plusIcon}"/>
+				</controls:RoundButton>
+				<ItemsControl Grid.Row="1"
+							  ItemsSource="{Binding FavoriteSchedules}"
+							  Theme="{StaticResource VerticalItemsControl}"
+							  Focusable="False">
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+							<controls:RoundButton Content="{Binding Name, Converter={x:Static converters:FuncConverters.ShortNameConverter}}"
+												  Command="{Binding $parent[ItemsControl].((vm:IMainViewModel)DataContext).LoadFavoriteSchedule}"
+												  CommandParameter="{Binding $self}"
+												  DeleteCommand="{Binding $parent[ItemsControl].((vm:IMainViewModel)DataContext).DeleteFavoriteSchedule}"
+												  ToolTip.Tip="{Binding Name}"
+												  ToolTip.Placement="Right"/>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+			</Grid>
+
+			<Separator Grid.Row="1" VerticalAlignment="Bottom" Margin="0"/>
+
+			<Button Grid.Row="2"
+					Height="40"
+					Width="40"
+					VerticalAlignment="Center"
+					HorizontalAlignment="Center"
+					Command="{Binding OpenSettingsWindow}"
+					CornerRadius="20">
+				<Path Data="{StaticResource settingsIcon}"
+					  Stretch="Fill"
+					  Width="25"
+					  Height="25"
+					  Fill="{DynamicResource Icon.Static.Stroke}"/>
+			</Button>
+
+		</Grid>
+
+		<Grid Grid.Column="1"
+			  RowDefinitions="60,*">
+			<Border Margin="10"
+					CornerRadius="10"
+					BorderThickness="1"
+					Background="{DynamicResource Border.Static.Background}"
+					BorderBrush="{DynamicResource Border.Static.BorderBrush}">
+				<Panel>
+					<StackPanel Orientation="Horizontal"
+								VerticalAlignment="Center"
+								HorizontalAlignment="Left">
+						<!--schedule name-->
+						<TextBlock Foreground="{DynamicResource TextBlock.Static.Foreground}"
+								   VerticalAlignment="Center"
+								   FontWeight="DemiBold"
+								   Text="{Binding Path=Schedule.fullName}"
+								   Margin="5,0,0,0"
+								   ToolTip.ServiceEnabled="{Binding Path=Schedule.studentGroup, Converter={x:Static ObjectConverters.IsNull}}"
+								   Cursor="{Binding Path=ScheduleNameCursor}">
+							<ToolTip.Tip>
+								<ToolTip Background="Transparent"
+										 BorderThickness="0"
+										 Height="100"
+										 Width="100"
+										 Padding="0">
+									<Image asyncImage:ImageLoader.Source="{Binding Schedule.employee.photoLink}">
+										<Image.Clip>
+											<EllipseGeometry RadiusX="40" RadiusY="40" Center="40,50"/>
+										</Image.Clip>
+									</Image>
+								</ToolTip>
+							</ToolTip.Tip>
+						</TextBlock>
+
+						<!--abbrev schedule name-->
+						<TextBlock Foreground="{DynamicResource TextBlock.Static.Foreground}"
+								   VerticalAlignment="Center"
+								   FontWeight="DemiBold"
+								   Margin="10,0,0,0"
+								   Cursor="Help"
+								   IsVisible="{Binding Path=Schedule.studentGroup, Converter={x:Static ObjectConverters.IsNotNull}}">
+							<TextBlock.Text>
+								<MultiBinding StringFormat="{}{0}, {1}">
+									<Binding Path="Schedule.studentGroup.specialityAbbrev"/>
+									<Binding Path="Schedule.studentGroup.facultyAbbrev"/>
+								</MultiBinding>
+							</TextBlock.Text>
+							<ToolTip.Tip>
+								<TextBlock Text="{Binding Path=Schedule.studentGroup.specialityName}" TextWrapping="Wrap"/>
+							</ToolTip.Tip>
+						</TextBlock>
+
+						<!--start & end lesson dates-->
+						<Grid RowDefinitions="*,*"
+							  Margin="10,0,0,0"
+							  IsVisible="{Binding Path=Schedule.startDate, Converter={x:Static ObjectConverters.IsNotNull}}">
+							<TextBlock Grid.Row="0"
+									   Text="{Binding Path=Schedule.startDate, StringFormat=Начало занятий: {0}}"
+									   VerticalAlignment="Center"
+									   FontWeight="DemiBold"
+									   Foreground="{DynamicResource TextBlock.Static.Foreground}"/>
+							<TextBlock Grid.Row="1"
+									   Text="{Binding Path=Schedule.endDate, StringFormat=Конец занятий: {0}}"
+									   VerticalAlignment="Center"
+									   FontWeight="DemiBold"
+									   Foreground="{DynamicResource TextBlock.Static.Foreground}"/>
+						</Grid>
+
+						<!--start & end session dates-->
+						<Grid RowDefinitions="*,*"
+							  Margin="10,0,0,0"
+							  IsVisible="{Binding Path=Schedule.startExamsDate, Converter={x:Static ObjectConverters.IsNotNull}}">
+							<TextBlock Grid.Row="0"
+									   Text="{Binding Path=Schedule.startExamsDate, StringFormat=Начало сессии: {0}}"
+									   VerticalAlignment="Center"
+									   FontWeight="DemiBold"
+									   Foreground="{DynamicResource TextBlock.Static.Foreground}"/>
+							<TextBlock Grid.Row="1"
+									   Text="{Binding Path=Schedule.endExamsDate, StringFormat=Конец сессии: {0}}"
+									   VerticalAlignment="Center"
+									   FontWeight="DemiBold"
+									   Foreground="{DynamicResource TextBlock.Static.Foreground}"/>
+						</Grid>
+					</StackPanel>
+					<StackPanel Orientation="Horizontal"
+								VerticalAlignment="Center"
+								HorizontalAlignment="Right">
+						<!--notes button-->
+						<Panel IsVisible="{Binding Path=Schedule.favorited}">
+							<Button Theme="{StaticResource ButtonStyle}"
+									Width="30"
+									Height="30"
+									VerticalAlignment="Center"
+									Command="{Binding OpenNotesWindow}">
+								<Path Data="{StaticResource noteIcon}"
+									  Stretch="Uniform"
+									  Height="17.5"
+									  Width="17.5"
+									  Fill="{DynamicResource Icon.Static.Stroke}"/>
+							</Button>
+							<Ellipse Fill="{DynamicResource Notes.HasItemsEllipse.Background}"
+									 Height="10"
+									 Width="10"
+									 HorizontalAlignment="Right"
+									 VerticalAlignment="Top"
+									 Margin="0,3,3,0"
+									 IsVisible="{Binding Path=NotesExistenceVisibility}"/>
+						</Panel>
+
+						<!--favorite button-->
+						<Button Theme="{StaticResource ButtonStyle}"
+								Width="30"
+								Height="30"
+								VerticalAlignment="Center"
+								Command="{Binding AddFavoriteSchedule}">
+							<Path Data="{StaticResource starIcon}"
+								  Stretch="Uniform"
+								  Height="17.5"
+								  Width="17.5"
+								  Stroke="{DynamicResource Icon.Static.Stroke}"
+								  StrokeThickness="0.75"
+								  Classes.favorited="{Binding Path=Schedule.favorited}">
+								<Path.Styles>
+									<Style Selector="Path.favorited">
+										<Setter Property="Fill" Value="{DynamicResource Icon.Static.Star.Fill}"/>
+									</Style>
+								</Path.Styles>
+							</Path>
+						</Button>
+
+						<!--announcement button-->
+						<Panel>
+							<Button Theme="{StaticResource ButtonStyle}"
+									Width="30"
+									Height="30"
+									VerticalAlignment="Center"
+									Command="{Binding OpenAnnouncements}">
+								<Path Data="{StaticResource announcementIcon}"
+									  Stretch="Uniform"
+									  Height="17.5"
+									  Width="17.5"
+									  Stroke="{DynamicResource Icon.Static.Stroke}"
+									  StrokeThickness="0.85"/>
+							</Button>
+							<Panel HorizontalAlignment="Right"
+								   VerticalAlignment="Top"
+								   Margin="0,2,2,0"
+								   IsVisible="{Binding Path=AnnouncementsExistenceVisibility}">
+								<Ellipse Fill="{DynamicResource WarningSign.Static.Background}"
+										 Height="10"
+										 Width="10"
+										 HorizontalAlignment="Center"
+										 VerticalAlignment="Center"/>
+								<TextBlock Text="!"
+										   Foreground="{DynamicResource WarningSign.Static.Text.Foreground}"
+										   VerticalAlignment="Center"
+										   HorizontalAlignment="Center"
+										   FontSize="10"
+										   FontWeight="DemiBold"/>
+							</Panel>
+
+						</Panel>
+					</StackPanel>
+				</Panel>
+			</Border>
+
+			<TabControl Grid.Row="1"
+						Margin="5,0,5,0"
+						SelectedIndex="{Binding Path=SelectedTab}">
+
+				<TabItem>
+					<TabItem.Header>
+						<TextBlock FontSize="14" Text="{Binding Path=Schedule.currentTerm}" Foreground="Black"/>
+					</TabItem.Header>
+				</TabItem>
+				<TabItem>
+					<TabItem.Header>
+						<TextBlock FontSize="14" Text="{Binding Path=Schedule.currentTerm}" Foreground="Black"/>
+					</TabItem.Header>
+				</TabItem>
+				<TabItem>
+					<TabItem.Header>
+						<TextBlock FontSize="14" Text="{Binding Path=Schedule.previousTerm}" Foreground="Black"/>
+					</TabItem.Header>
+				</TabItem>
+			</TabControl>
+		</Grid>
+	</Grid>
+</UserControl>

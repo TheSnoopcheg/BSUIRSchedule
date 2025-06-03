@@ -1,0 +1,94 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:lang="clr-namespace:BSUIRSchedule.Langs"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="BSUIRSchedule.Controls.SearchBox"
+			 x:Name="root">
+	<UserControl.Styles>
+		<Style Selector="TextBox">
+			<Setter Property="Background" Value="{DynamicResource TextBox.Static.Background}"/>
+			<Setter Property="BorderBrush" Value="{DynamicResource TextBox.Static.Border}"/>
+			<Setter Property="Foreground" Value="{DynamicResource TextBox.Static.Foreground}"/>
+			<Setter Property="CaretBrush" Value="{DynamicResource TextBox.Static.Foreground}"/>
+			<Setter Property="SelectionBrush" Value="{DynamicResource TextBox.Static.SelectionBrush}"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Style Selector="^:focus">
+				<Setter Property="Foreground" Value="{DynamicResource TextBox.Static.Foreground}"/>
+				<Setter Property="CaretBrush" Value="{DynamicResource TextBox.Static.Foreground}"/>
+				<Style Selector="^ /template/ TextBlock#PART_Watermark">
+					<Setter Property="Foreground" Value="{DynamicResource TextBox.Static.Watermark}"/>
+				</Style>
+				<Style Selector="^ /template/ Border#PART_BorderElement">
+					<Setter Property="BorderBrush" Value="{DynamicResource TextBox.Focus.Border}"/>
+					<Setter Property="Background" Value="{DynamicResource TextBox.Static.Background}"/>
+				</Style>
+			</Style>
+			<Style Selector="^:pointerover">
+				<Setter Property="Foreground" Value="{DynamicResource TextBox.Static.Foreground}"/>
+				<Setter Property="CaretBrush" Value="{DynamicResource TextBox.Static.Foreground}"/>
+				<Style Selector="^ /template/ TextBlock#PART_Watermark">
+					<Setter Property="Foreground" Value="{DynamicResource TextBox.Static.Watermark}"/>
+				</Style>
+				<Style Selector="^ /template/ Border#PART_BorderElement">
+					<Setter Property="BorderBrush" Value="{DynamicResource TextBox.MouseOver.Border}"/>
+					<Setter Property="Background" Value="{DynamicResource TextBox.Static.Background}"/>
+				</Style>
+			</Style>
+		</Style>
+
+		<Style Selector="ListBoxItem">
+			<Setter Property="Focusable" Value="False"/>
+			<Setter Property="Background" Value="{DynamicResource ListBox.Item.Static.Background}"/>
+			<Setter Property="FontSize" Value="12"/>
+			<Setter Property="Padding" Value="5,7"/>
+			<Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+				<Setter Property="Background" Value="{DynamicResource ListBox.Item.Selected.Background}"/>
+				<Setter Property="BorderThickness" Value="1"/>
+				<Setter Property="BorderBrush" Value="{DynamicResource ListBox.Item.Selected.Border}"/>
+				<Setter Property="Foreground" Value="{DynamicResource ListBox.Static.Foreground}"/>
+			</Style>
+			<Style Selector="^:selected /template/ ContentPresenter#PART_ContentPresenter">
+				<Setter Property="Background" Value="{DynamicResource ListBox.Item.Selected.Background}"/>
+				<Setter Property="BorderThickness" Value="1"/>
+				<Setter Property="BorderBrush" Value="{DynamicResource ListBox.Item.Selected.Border}"/>
+				<Setter Property="Foreground" Value="{DynamicResource ListBox.Static.Foreground}"/>
+			</Style>
+		</Style>
+	</UserControl.Styles>
+
+	<Panel>
+		<Popup x:Name="popup"
+			   Placement="Bottom"
+			   IsOpen="{Binding ElementName=root, Path=IsDropDownOpen}">
+			<Border x:Name="dropDownBorder"
+					Background="Transparent"
+					MaxHeight="{Binding MaxDropDownHeight, ElementName=root}">
+				<ListBox x:Name="listBox"
+						 Focusable="True"
+						 BorderThickness="1"
+					     Width="{Binding #searchTextBox.Bounds.Width}"
+						 BorderBrush="{DynamicResource ListBox.Static.Border}"
+						 Background="{DynamicResource ListBox.Static.Background}"
+						 Foreground="{DynamicResource ListBox.Static.Foreground}"
+						 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+						 ScrollViewer.VerticalScrollBarVisibility="Auto"
+						 ItemsSource="{Binding ItemsSource, ElementName=root}"
+						 SelectedIndex="{Binding SelectedIndex, ElementName=root}"
+						 SelectedItem="{Binding SelectedItem, ElementName=root}"/>
+			</Border>
+		</Popup>
+		<TextBox x:Name="searchTextBox"
+				 Watermark="{x:Static lang:Language.GroupNumberInput}"
+				 FontSize="12"
+				 CornerRadius="5"
+				 MinHeight="5"
+				 Padding="5,0"
+				 Focusable="True"
+				 Text="{Binding Text, ElementName=root}">
+		</TextBox>
+	</Panel>
+	
+</UserControl>

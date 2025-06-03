@@ -1,0 +1,92 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="BSUIRSchedule.Views.SettingsWindow"
+		Height="250"
+		Width="400"
+        Title="SettingsWindow"
+		Background="Transparent"
+		CanResize="False"
+		ShowInTaskbar="False"
+		WindowStartupLocation="CenterScreen"
+		ExtendClientAreaChromeHints="NoChrome"
+		ExtendClientAreaToDecorationsHint="True"
+		PointerPressed="Window_PointerPressed">
+	<Border Background="{DynamicResource Window.Static.Background}"
+			BorderBrush="{DynamicResource Window.Static.BorderBrush}"
+			CornerRadius="10"
+			BorderThickness="1">
+		<Grid RowDefinitions="50,*">
+			<TextBlock VerticalAlignment="Center"
+					   Foreground="{DynamicResource TextBlock.Static.Foreground}"
+					   Margin="10"
+					   FontSize="16"
+					   FontWeight="DemiBold"
+					   Grid.Row="0"
+					   Text="Настройки"/>
+			<Button Height="30"
+					Width="30"
+					HorizontalAlignment="Right"
+					VerticalAlignment="Center"
+					Margin="10"
+					Grid.Row="0"
+					Theme="{StaticResource ButtonStyle}"
+					Click="CloseButton_Click">
+				<Path Data="{StaticResource closeIcon}"
+					  Stretch="Fill"
+					  Width="15"
+					  Height="15"
+					  Fill="{DynamicResource Icon.Static.Stroke}"/>
+			</Button>
+
+			<Grid Grid.Row="1"
+				  ColumnDefinitions="Auto, *">
+				<StackPanel Orientation="Vertical"
+							Margin="10"
+							Grid.Column="0">
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Text="Тема"
+								   VerticalAlignment="Center"
+								   Foreground="{DynamicResource TextBlock.Static.Foreground}"/>
+						<ComboBox Width="75"
+								  Margin="5,0,0,0"
+								  HorizontalAlignment="Left"
+								  VerticalAlignment="Center"/>
+					</StackPanel>
+					
+					<TextBlock Text="Цвета"
+							   FontSize="14"
+							   Foreground="{DynamicResource TextBlock.Static.Foreground}"/>
+
+					<StackPanel Orientation="Vertical"
+								Margin="5,0,0,0"
+								HorizontalAlignment="Left">
+						<TextBlock Text="ColorPicker"/>
+						<TextBlock Text="ColorPicker"/>
+						<TextBlock Text="ColorPicker"/>
+						<TextBlock Text="ColorPicker"/>
+						<TextBlock Text="ColorPicker"/>
+						<TextBlock Text="ColorPicker"/>
+					</StackPanel>
+				</StackPanel>
+
+				<StackPanel Orientation="Vertical"
+							Grid.Column="1"
+							HorizontalAlignment="Right"
+							VerticalAlignment="Bottom"
+							Margin="5">
+					<TextBlock Text="DEVBUILD"
+							   Foreground="{DynamicResource TextBlock.Static.Foreground}"
+							   HorizontalAlignment="Right"
+							   FontSize="10"/>
+					<TextBlock Text="© 2023-2024 Dmitry Lantas"
+							   Foreground="{DynamicResource TextBlock.Static.Foreground}"
+							   HorizontalAlignment="Right"
+							   FontSize="10"/>
+				</StackPanel>
+			</Grid>
+		</Grid>
+	</Border>
+</Window>

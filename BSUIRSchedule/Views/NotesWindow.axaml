@@ -1,0 +1,179 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:lang="clr-namespace:BSUIRSchedule.Langs;assembly=BSUIRSchedule"
+		xmlns:controls="using:BSUIRSchedule.Controls"
+		xmlns:vm="using:BSUIRSchedule.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+		Width="800"
+		Height="450"
+        x:Class="BSUIRSchedule.Views.NotesWindow"
+        Title="NotesWindow"
+		Background="Transparent"
+		CanResize="False"
+		ShowInTaskbar="False"
+		WindowStartupLocation="CenterScreen"
+		ExtendClientAreaChromeHints="NoChrome"
+		ExtendClientAreaToDecorationsHint="True"
+		x:DataType="vm:NoteViewModel"
+		PointerPressed="Window_PointerPressed">
+	<Border Background="{DynamicResource Window.Static.Background}"
+			BorderBrush="{DynamicResource Window.Static.BorderBrush}"
+			CornerRadius="10"
+			BorderThickness="1">
+		<Grid RowDefinitions="50, *">
+			<TextBlock VerticalAlignment="Center"
+					   Foreground="{DynamicResource TextBlock.Static.Foreground}"
+					   Margin="10"
+					   FontSize="16"
+					   FontWeight="DemiBold"
+					   Classes.employee="{Binding IsEmployeeNote}"
+					   Grid.Row="0">
+				<TextBlock.Styles>
+					<Style Selector="TextBlock">
+						<Setter Property="Text">
+							<MultiBinding StringFormat="{}{0} {1}">
+								<Binding Source="{x:Static lang:Language.GroupNotes}"/>
+								<Binding Path="Title"/>
+							</MultiBinding>
+						</Setter>
+					</Style>
+					<Style Selector="TextBlock.employee">
+						<Setter Property="Text">
+							<MultiBinding StringFormat="{}{0} {1}">
+								<Binding Source="{x:Static lang:Language.Notes}"/>
+								<Binding Path="Title"/>
+							</MultiBinding>
+						</Setter>
+					</Style>
+				</TextBlock.Styles>
+				
+			</TextBlock>
+			<Button Height="30"
+					Width="30"
+					HorizontalAlignment="Right"
+					VerticalAlignment="Center"
+					Margin="10"
+					Grid.Row="0"
+					Theme="{StaticResource ButtonStyle}"
+					Click="CloseButton_Click">
+				<Path Data="{StaticResource closeIcon}"
+					  Stretch="Fill"
+					  Width="15"
+					  Height="15"
+					  Fill="{DynamicResource Icon.Static.Stroke}"/>
+			</Button>
+
+			<Grid Grid.Row="1"
+				  ColumnDefinitions="*, 150">
+				<Border Grid.Column="0"
+						CornerRadius="10"
+						Margin="10,10,5,10"
+						Background="{DynamicResource Border.Static.Background}">
+					<Grid RowDefinitions="30, *">
+						<Border Grid.Row="0"
+								HorizontalAlignment="Stretch"
+								CornerRadius="10,10,0,0"
+								Background="{DynamicResource Border.Static.Title.Background}">
+							<Grid ColumnDefinitions="150,*">
+								<TextBlock Grid.Column="0"
+										   Foreground="{DynamicResource TextBlock.Static.Foreground}"
+										   Text="{x:Static lang:Language.Date}"
+										   VerticalAlignment="Center"
+										   HorizontalAlignment="Center"
+										   FontWeight="DemiBold"/>
+								<controls:VerticalSeparator Grid.Column="0"
+															HorizontalAlignment="Right"
+															Height="30"/>
+								<TextBlock Grid.Column="1"
+										   Foreground="{DynamicResource TextBlock.Static.Foreground}"
+										   Text="{x:Static lang:Language.Note}"
+										   VerticalAlignment="Center"
+										   HorizontalAlignment="Center"
+										   FontWeight="DemiBold"/>
+							</Grid>
+						</Border>
+
+
+						<StackPanel Orientation="Vertical"
+									Grid.Row="1"
+									VerticalAlignment="Center"
+									HorizontalAlignment="Center">
+							<Path Fill="{DynamicResource Icon.Static.Stroke}"
+								  Stretch="Fill"
+								  Height="125"
+								  Width="125"
+								  Data="{StaticResource documentsIcon}"/>
+							<TextBlock Text="{x:Static lang:Language.NoNotes}"
+									   Foreground="{DynamicResource TextBlock.Static.Foreground}"
+									   HorizontalAlignment="Center"
+									   FontWeight="DemiBold"
+									   Margin="0,5,0,0"/>
+						</StackPanel>
+					</Grid>
+				</Border>
+
+				<Grid Grid.Column="1"
+					  RowDefinitions="120, *">
+					<StackPanel Orientation="Vertical"
+								Margin="5,10,10,10">
+						<Button Height="30"
+								Width="135"
+								Content="{x:Static lang:Language.Add}"
+								Theme="{StaticResource ButtonStyle}"
+								Foreground="{DynamicResource SubWindow.Button.Static.Foreground}">
+							<Button.Styles>
+								<Style Selector="Button">
+									<Setter Property="Background" Value="{DynamicResource SubWindow.Button.Static.Background}"/>
+								</Style>
+							</Button.Styles>
+						</Button>
+						<Button Height="30"
+								Width="135"
+								Margin="0,5,0,0"
+								Content="{x:Static lang:Language.Edit}"
+								Theme="{StaticResource ButtonStyle}"
+								Foreground="{DynamicResource SubWindow.Button.Static.Foreground}">
+							<Button.Styles>
+								<Style Selector="Button">
+									<Setter Property="Background" Value="{DynamicResource SubWindow.Button.Static.Background}"/>
+								</Style>
+							</Button.Styles>
+						</Button>
+						<Button Height="30"
+								Width="135"
+								Margin="0,5,0,0"
+								Content="{x:Static lang:Language.Delete}"
+								Theme="{StaticResource ButtonStyle}"
+								Foreground="{DynamicResource SubWindow.Button.Static.Foreground}">
+							<Button.Styles>
+								<Style Selector="Button">
+									<Setter Property="Background" Value="{DynamicResource SubWindow.Button.Static.Background}"/>
+								</Style>
+							</Button.Styles>
+						</Button>
+					</StackPanel>
+					<Grid Grid.Row="1"
+						  Margin="5,0,10,10"
+						  RowDefinitions="Auto,Auto,Auto,*">
+						<TextBlock Grid.Row="0"
+								   Text="{Binding Source={x:Static lang:Language.Date}, StringFormat={}{0}:}"
+								   Foreground="{DynamicResource TextBlock.Static.Foreground}"/>
+						<CalendarDatePicker Grid.Row="1"
+											HorizontalAlignment="Stretch"
+											SelectedDate="{Binding Path=NoteDate}"/>
+						<TextBlock Grid.Row="2"
+								   Text="{Binding Source={x:Static lang:Language.Text}, StringFormat={}{0}:}"
+								   Foreground="{DynamicResource TextBlock.Static.Foreground}"/>
+						<TextBox Grid.Row="3"
+								 Text="{Binding Path=NoteText}"
+								 TextWrapping="Wrap"
+								 SelectionForegroundBrush="{DynamicResource TextBox.Static.SelectionForeground}"/>
+						
+					</Grid>
+				</Grid>
+			</Grid>
+		</Grid>
+	</Border>
+</Window>

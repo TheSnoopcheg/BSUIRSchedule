@@ -1,0 +1,134 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:BSUIRSchedule.Controls">
+
+  <!--
+    Additional resources 
+    Using Control Themes:
+         https://docs.avaloniaui.net/docs/basics/user-interface/styling/control-themes
+    Using Theme Variants:
+         https://docs.avaloniaui.net/docs/guides/styles-and-resources/how-to-use-theme-variants
+  -->
+  
+  <Design.PreviewWith>
+    <StackPanel Width="50" Spacing="0">      
+        <StackPanel Background="Black">
+			<controls:RoundButton Classes="static">
+				<Path Height="20"
+					Width="20"
+					VerticalAlignment="Center"
+					HorizontalAlignment="Center"
+					Stretch="Fill"
+					Fill="{DynamicResource Icon.Static.Stroke}"
+					Data="{StaticResource plusIcon}"/>
+			</controls:RoundButton>
+			<controls:RoundButton Content="111"/>
+			<controls:RoundButton Content="111"/>
+        </StackPanel>
+    </StackPanel>
+  </Design.PreviewWith>
+
+	<Animation x:Key="RoundButtonDashEllipseAnimation"
+			   x:SetterTargetType="Ellipse"
+				Duration="0:0:1"
+				Easing="ExponentialEaseInOut">
+		<KeyFrame Cue="0%">
+			<Setter Property="RotateTransform.Angle" Value="0.0"/>
+		</KeyFrame>
+		<KeyFrame Cue="100%">
+			<Setter Property="RotateTransform.Angle" Value="360.0"/>
+		</KeyFrame>
+	</Animation>
+ 
+  <ControlTheme x:Key="{x:Type controls:RoundButton}" TargetType="controls:RoundButton">
+	<Setter Property="Focusable" Value="False"/>
+    <Setter Property="Template">
+      <ControlTemplate TargetType="controls:RoundButton">
+		  <Panel>
+			  <Ellipse Height="40"
+					   Width="40"
+					   StrokeThickness="1"
+					   Stroke="{DynamicResource FavoriteBar.Button.External.Static}"
+						StrokeDashArray="5"
+						Margin="5"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						x:Name="PART_DashEllipse">
+			  </Ellipse>
+
+			  <Ellipse Height="35"
+					   Width="35"
+					   StrokeThickness="1"
+					   Fill="{DynamicResource FavoriteBar.Button.Background.Static}"
+					   HorizontalAlignment="Center"
+					   VerticalAlignment="Center"
+					   x:Name="PART_BackEllipse">
+			  </Ellipse>
+
+			  <Button Height="15"
+					  Width="15"
+					  HorizontalAlignment="Right"
+					  VerticalAlignment="Top"
+					  Margin="6"
+					  Background="{DynamicResource FavoriteBar.Button.Background.Static}"
+					  Command="{Binding $parent[controls:RoundButton].DeleteCommand}"
+					  CommandParameter="{Binding $parent[controls:RoundButton]}"
+					  Padding="0"
+					  Opacity="0"
+					  BorderBrush="Black"
+					  BorderThickness="0.5"
+					  Theme="{StaticResource ButtonStyle}"
+					  x:Name="PART_DeleteButton">
+				  <Button.Transitions>
+					  <Transitions>
+						  <DoubleTransition Property="Opacity" Duration="0:0:0.25"/> 
+					  </Transitions>
+				  </Button.Transitions>
+				  <Button.Styles>
+					  <Style Selector="Button:pointerover">
+						  <Setter Property="Background" Value="{DynamicResource FavoriteBar.Button.MouseOver.Background.Static}"/>
+					  </Style>
+					  <Style Selector="Button:pressed">
+						  <Setter Property="Background" Value="{DynamicResource FavoriteBar.Button.Pressed.Background.Static}"/>
+					  </Style>
+				  </Button.Styles>
+				  <Path Fill="{DynamicResource Icon.Static.Stroke}"
+						Stretch="Fill"
+						StrokeThickness="0.5"
+						Stroke="{DynamicResource Icon.Static.Stroke}"
+						Height="6"
+						VerticalAlignment="Center"
+						HorizontalAlignment="Center"
+						Width="6"
+						Data="{StaticResource closeIcon}"/>
+			  </Button>
+
+				<ContentPresenter x:Name="contentPresenter"
+								  Content="{TemplateBinding Content}"
+								  Focusable="False"
+								  HorizontalAlignment="Center"
+								  VerticalAlignment="Center"
+								  TextAlignment="Center"
+								  Margin="{TemplateBinding Padding}"
+								  RecognizesAccessKey="True"
+								  Foreground="{DynamicResource TextBlock.Static.Foreground}"
+								  FontSize="10"
+								  FontWeight="DemiBold"/>
+								  
+		  </Panel>
+      </ControlTemplate>
+    </Setter>
+	  <Style Selector="^.static /template/ Button#PART_DeleteButton">
+		  <Setter Property="IsVisible" Value="False"/>
+	  </Style>
+	  <Style Selector="^:pointerover /template/ Button#PART_DeleteButton">
+		  <Setter Property="Opacity" Value="1"/>
+	  </Style>
+	  <Style Selector="^:pointerover /template/ Ellipse#PART_BackEllipse">
+		  <Setter Property="Fill" Value="{DynamicResource FavoriteBar.Button.MouseOver.Background.Static}"/>
+	  </Style>
+	  <Style Selector="^:pressed /template/ Ellipse#PART_BackEllipse">
+		  <Setter Property="Fill" Value="{DynamicResource FavoriteBar.Button.Pressed.Background.Static}"/>
+	  </Style>
+  </ControlTheme>
+</ResourceDictionary>
