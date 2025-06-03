@@ -7,7 +7,9 @@
 		ToolTip Style and colors-->
     <Application.Styles>
 		<FluentTheme/>
-		<StyleInclude Source="/Themes/Styles.axaml"/>
+		<StyleInclude Source="/Themes/Styles/Calendar.axaml"/>
+		<StyleInclude Source="/Themes/Styles/CalendarDatePicker.axaml"/>
+		<StyleInclude Source="/Themes/Styles/TextBox.axaml"/>
     </Application.Styles>
 
 	<Application.Resources>

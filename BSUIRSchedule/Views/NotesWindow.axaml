@@ -162,6 +162,7 @@
 								   Foreground="{DynamicResource TextBlock.Static.Foreground}"/>
 						<CalendarDatePicker Grid.Row="1"
 											HorizontalAlignment="Stretch"
+											VerticalAlignment="Stretch"
 											SelectedDate="{Binding Path=NoteDate}"/>
 						<TextBlock Grid.Row="2"
 								   Text="{Binding Source={x:Static lang:Language.Text}, StringFormat={}{0}:}"
