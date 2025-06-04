@@ -2,6 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:lang="clr-namespace:BSUIRSchedule.Langs"
 		xmlns:cc="using:BSUIRSchedule.Controls"
 		xmlns:vm="using:BSUIRSchedule.ViewModels"
         mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="75"
@@ -23,7 +24,7 @@
 		<Grid RowDefinitions="*,*">
 
 			<cc:SearchBox x:Name="searchBox"
-						  Margin="10,0,10,0"
+						  Margin="8,0,8,0"
 						  Height="25"
 						  MaxDropDownHeight="150"
 						  ItemsSource="{Binding Path=Responses}"
@@ -35,7 +36,7 @@
 			<Grid ColumnDefinitions="*,*"
 				  Grid.Row="1">
 				<Button Grid.Column="0"
-						Content="Добавить"
+						Content="{x:Static lang:Language.Add}"
 						Width="80"
 						VerticalAlignment="Center"
 						HorizontalAlignment="Center"
@@ -43,7 +44,7 @@
 						Theme="{StaticResource ButtonStyle1}"
 						Click="AcceptButton_Click"/>
 				<Button Grid.Column="1"
-						Content="Отмена"
+						Content="{x:Static lang:Language.Cancel}"
 						Width="80"
 						VerticalAlignment="Center"
 						HorizontalAlignment="Center"
