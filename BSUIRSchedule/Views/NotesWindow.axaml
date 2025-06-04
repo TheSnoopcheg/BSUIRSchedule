@@ -3,6 +3,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:lang="clr-namespace:BSUIRSchedule.Langs;assembly=BSUIRSchedule"
+		xmlns:class="clr-namespace:BSUIRSchedule.Classes;assembly=BSUIRSchedule"
 		xmlns:controls="using:BSUIRSchedule.Controls"
 		xmlns:vm="using:BSUIRSchedule.ViewModels"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
@@ -18,6 +19,36 @@
 		ExtendClientAreaToDecorationsHint="True"
 		x:DataType="vm:NoteViewModel"
 		PointerPressed="Window_PointerPressed">
+	<Window.Resources>
+		<DataTemplate x:Key="noteTemplate" x:DataType="{x:Type class:Note}">
+			<Grid Margin="0,5" ColumnDefinitions="150,*">
+				<TextBlock Text="{Binding Path=Date, StringFormat=dd.MM.yyyy}"
+                           Foreground="{DynamicResource Border.ElementText.Static}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           TextWrapping="Wrap"
+                           TextAlignment="Center"/>
+				<TextBlock Grid.Column="1" 
+						   Text="{Binding Path=Content}"
+                           Foreground="{DynamicResource Border.ElementText.Static}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           TextWrapping="Wrap"
+                           TextAlignment="Center"/>
+			</Grid>
+		</DataTemplate>
+	</Window.Resources>
+	<Window.Styles>
+		<Style Selector="ListBoxItem">
+			<Setter Property="Padding" Value="0"/>
+		</Style>
+		<Style Selector="ListBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="{DynamicResource ListBox.Item.MouseOver.Background}"/>
+		</Style>
+		<Style Selector="ListBoxItem:selected /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="{DynamicResource ListBox.Item.Selected.Background}"/>
+		</Style>
+	</Window.Styles>
 	<Border Background="{DynamicResource Window.Static.Background}"
 			BorderBrush="{DynamicResource Window.Static.BorderBrush}"
 			CornerRadius="10"
@@ -95,11 +126,15 @@
 							</Grid>
 						</Border>
 
-
+						<ListBox ItemsSource="{Binding Notes}"
+								 Grid.Row="1"
+								 SelectedItem="{Binding SelectedNote}"
+								 ItemTemplate="{StaticResource noteTemplate}"/>
 						<StackPanel Orientation="Vertical"
 									Grid.Row="1"
 									VerticalAlignment="Center"
-									HorizontalAlignment="Center">
+									HorizontalAlignment="Center"
+									IsVisible="{Binding !Notes.Count}">
 							<Path Fill="{DynamicResource Icon.Static.Stroke}"
 								  Stretch="Fill"
 								  Height="125"
@@ -122,19 +157,29 @@
 								Width="135"
 								Content="{x:Static lang:Language.Add}"
 								Theme="{StaticResource ButtonStyle}"
-								Foreground="{DynamicResource SubWindow.Button.Static.Foreground}">
+								Foreground="{DynamicResource SubWindow.Button.Static.Foreground}"
+								Command="{Binding Path=AddNote}">
 							<Button.Styles>
 								<Style Selector="Button">
 									<Setter Property="Background" Value="{DynamicResource SubWindow.Button.Static.Background}"/>
 								</Style>
 							</Button.Styles>
+							<Button.IsEnabled>
+								<MultiBinding Converter="{x:Static BoolConverters.And}">
+									<Binding Path="NoteText" Converter="{x:Static StringConverters.IsNotNullOrEmpty}"/>
+									<Binding Path="!IsEditing"/>
+									<Binding Path="NoteDate" Converter="{x:Static ObjectConverters.IsNotNull}"/>
+								</MultiBinding>
+							</Button.IsEnabled>
 						</Button>
 						<Button Height="30"
 								Width="135"
 								Margin="0,5,0,0"
 								Content="{x:Static lang:Language.Edit}"
 								Theme="{StaticResource ButtonStyle}"
-								Foreground="{DynamicResource SubWindow.Button.Static.Foreground}">
+								IsEnabled="{Binding Path=SelectedNote, Converter={x:Static ObjectConverters.IsNotNull}}"
+								Foreground="{DynamicResource SubWindow.Button.Static.Foreground}"
+								Command="{Binding Path=EditNote}">
 							<Button.Styles>
 								<Style Selector="Button">
 									<Setter Property="Background" Value="{DynamicResource SubWindow.Button.Static.Background}"/>
@@ -146,7 +191,9 @@
 								Margin="0,5,0,0"
 								Content="{x:Static lang:Language.Delete}"
 								Theme="{StaticResource ButtonStyle}"
-								Foreground="{DynamicResource SubWindow.Button.Static.Foreground}">
+								IsEnabled="{Binding Path=SelectedNote, Converter={x:Static ObjectConverters.IsNotNull}}"
+								Foreground="{DynamicResource SubWindow.Button.Static.Foreground}"
+								Command="{Binding Path=DeleteNote}">
 							<Button.Styles>
 								<Style Selector="Button">
 									<Setter Property="Background" Value="{DynamicResource SubWindow.Button.Static.Background}"/>
@@ -161,13 +208,16 @@
 								   Text="{Binding Source={x:Static lang:Language.Date}, StringFormat={}{0}:}"
 								   Foreground="{DynamicResource TextBlock.Static.Foreground}"/>
 						<CalendarDatePicker Grid.Row="1"
+											Classes="fix"
 											HorizontalAlignment="Stretch"
 											VerticalAlignment="Stretch"
-											SelectedDate="{Binding Path=NoteDate}"/>
+											SelectedDate="{Binding Path=NoteDate}"
+											FirstDayOfWeek="Monday"/>
 						<TextBlock Grid.Row="2"
 								   Text="{Binding Source={x:Static lang:Language.Text}, StringFormat={}{0}:}"
 								   Foreground="{DynamicResource TextBlock.Static.Foreground}"/>
 						<TextBox Grid.Row="3"
+								 x:Name="noteBox"
 								 Text="{Binding Path=NoteText}"
 								 TextWrapping="Wrap"
 								 SelectionForegroundBrush="{DynamicResource TextBox.Static.SelectionForeground}"/>

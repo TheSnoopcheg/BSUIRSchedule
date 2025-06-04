@@ -14,4 +14,9 @@
 	<Style Selector="CalendarDatePicker /template/ TextBox#PART_TextBox">
 		<Setter Property="SelectionForegroundBrush" Value="{DynamicResource TextBox.Static.SelectionForeground}"/>
 	</Style>
+	<Style Selector="CalendarDatePicker.fix /template/ Button#PART_Button">
+		<Style Selector="^ /template/ Border">
+			<Setter Property="BorderThickness" Value="1"/>
+		</Style>
+	</Style>
 </Styles>

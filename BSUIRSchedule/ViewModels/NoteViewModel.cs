@@ -15,7 +15,7 @@ namespace BSUIRSchedule.ViewModels
         public NoteViewModel(INoteModel noteModel)
         {
             _model = noteModel;
-            _model.NotesChanged += () => NotesChanged.Invoke();
+            _model.NotesChanged += () => NotesChanged?.Invoke();
         }
 
         public async Task<bool> SetNotes(string? title, string? url)
@@ -78,9 +78,9 @@ namespace BSUIRSchedule.ViewModels
                 return deleteNote ??
                     (deleteNote = new RelayCommand(obj =>
                     {
-                        if(obj is Note v)
+                        if(SelectedNote is not null)
                         {
-                            _model.RemoveNote(v);
+                            _model.RemoveNote(SelectedNote);
                             if (IsEditing)
                             {
                                 IsEditing = false;
@@ -93,6 +93,7 @@ namespace BSUIRSchedule.ViewModels
         }
 
         #endregion
+
         private string? _noteText;
         public string? NoteText
         {
@@ -106,6 +107,7 @@ namespace BSUIRSchedule.ViewModels
             set => this.RaiseAndSetIfChanged(ref _noteDate, value);
         }
         public ObservableCollection<Note> Notes => _model.Notes;
+
         private bool _isEditing;
         public bool IsEditing
         {

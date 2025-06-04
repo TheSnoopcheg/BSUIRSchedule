@@ -326,7 +326,7 @@ namespace BSUIRSchedule.ViewModels
             _announcementViewModel = announcementViewModel;
             _noteViewModel = noteViewModel;
 
-            //_noteViewModel.NotesChanged += () => OnPropertyChanged(nameof(NotesExistenceVisibility));
+            _noteViewModel.NotesChanged += () => this.RaisePropertyChanged(nameof(NotesExistenceVisibility));
 
             LoadRecentSchedule();
         }
