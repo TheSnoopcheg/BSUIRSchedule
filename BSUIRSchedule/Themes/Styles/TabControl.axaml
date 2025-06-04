@@ -1,0 +1,36 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Design.PreviewWith>
+    <Border Padding="20">
+		<TabControl>
+			<TabItem>
+				<TabItem.Header>
+					<TextBlock Text="Test"/>
+				</TabItem.Header>
+			</TabItem>
+			<TabItem>
+				<TabItem.Header>
+					<TextBlock Text="Test"/>
+				</TabItem.Header>
+			</TabItem>
+			<TabItem>
+				<TabItem.Header>
+					<TextBlock Text="Test"/>
+				</TabItem.Header>
+			</TabItem>
+		</TabControl>
+    </Border>
+  </Design.PreviewWith>
+
+	<Style Selector="TabItem">
+		<Setter Property="Padding" Value="6,2"/>
+		<Setter Property="Margin" Value="0"/>
+		<Setter Property="FontSize" Value="14"/>
+		<Setter Property="MinHeight" Value="30"/>
+		<Setter Property="Foreground" Value="{DynamicResource TextBlock.Static.Foreground}"/>
+		<Style Selector="^:selected /template/ Border#PART_SelectedPipe">
+			<Setter Property="Background" Value="{DynamicResource TabItem.Selected.Underline}"/>
+		</Style>
+	</Style>
+	
+</Styles>

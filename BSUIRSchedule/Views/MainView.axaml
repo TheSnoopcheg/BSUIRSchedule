@@ -2,6 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:lang="clr-namespace:BSUIRSchedule.Langs;assembly=BSUIRSchedule"
              xmlns:vm="clr-namespace:BSUIRSchedule.ViewModels"
 			 xmlns:controls="clr-namespace:BSUIRSchedule.Controls;assembly=BSUIRSchedule"
 			 xmlns:converters="clr-namespace:BSUIRSchedule.Converters;assembly=BSUIRSchedule"
@@ -252,18 +253,36 @@
 
 				<TabItem>
 					<TabItem.Header>
-						<TextBlock FontSize="14" Text="{Binding Path=Schedule.currentTerm}" Foreground="Black"/>
+						<TextBlock Classes.current="{Binding Schedule.currentTerm, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+							<TextBlock.Styles>
+								<Style Selector="TextBlock">
+									<Setter Property="Text" Value="{x:Static lang:Language.Classes}"/>
+								</Style>
+								<Style Selector="TextBlock.current">
+									<Setter Property="Text" Value="{Binding Path=Schedule.currentTerm}"/>
+								</Style>
+							</TextBlock.Styles>
+						</TextBlock>
 					</TabItem.Header>
+					<TabItem.Content>
+						<!--TODO: SchedulePresenter-->
+					</TabItem.Content>
 				</TabItem>
 				<TabItem>
 					<TabItem.Header>
-						<TextBlock FontSize="14" Text="{Binding Path=Schedule.currentTerm}" Foreground="Black"/>
+						<TextBlock Text="{x:Static lang:Language.Exams}"/>
 					</TabItem.Header>
+					<TabItem.Content>
+						<!--TODO: ExamPresenter-->
+					</TabItem.Content>
 				</TabItem>
 				<TabItem>
 					<TabItem.Header>
-						<TextBlock FontSize="14" Text="{Binding Path=Schedule.previousTerm}" Foreground="Black"/>
+						<TextBlock Text="{Binding Path=Schedule.previousTerm}"/>
 					</TabItem.Header>
+					<TabItem.Content>
+						<!--TODO: SchedulePresenter-->
+					</TabItem.Content>
 				</TabItem>
 			</TabControl>
 		</Grid>

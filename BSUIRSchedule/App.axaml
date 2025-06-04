@@ -10,6 +10,7 @@
 		<StyleInclude Source="/Themes/Styles/Calendar.axaml"/>
 		<StyleInclude Source="/Themes/Styles/CalendarDatePicker.axaml"/>
 		<StyleInclude Source="/Themes/Styles/TextBox.axaml"/>
+		<StyleInclude Source="/Themes/Styles/TabControl.axaml"/>
     </Application.Styles>
 
 	<Application.Resources>
