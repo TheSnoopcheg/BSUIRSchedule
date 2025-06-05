@@ -1,0 +1,110 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:BSUIRSchedule.Controls"
+		xmlns:converters="clr-namespace:BSUIRSchedule.Converters;assembly=BSUIRSchedule"
+		xmlns:asyncImage="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+		xmlns:classes="clr-namespace:BSUIRSchedule.Classes;assembly=BSUIRSchedule"
+		x:CompileBindings="False">
+  
+  <Design.PreviewWith>
+    <StackPanel Width="400" Spacing="10"> 
+        <StackPanel Background="{DynamicResource SystemRegionBrush}">
+          <controls:GroupTeacherButton Margin="20"/>
+        </StackPanel>
+    </StackPanel>
+  </Design.PreviewWith>
+ 
+  <ControlTheme x:Key="{x:Type controls:GroupTeacherButton}" 
+				TargetType="controls:GroupTeacherButton"
+				x:DataType="{x:Type classes:GroupTeacher}">
+	  <Setter Property="MinHeight" Value="20"/>
+	  <Setter Property="MaxHeight" Value="40"/>
+	  <Setter Property="Focusable" Value="False"/>
+	  <Setter Property="Cursor" Value="Hand"/>
+	  <Setter Property="CommandParameter" Value="{Binding Url}"/>
+	  <Setter Property="Template">
+      <ControlTemplate>
+		  <Grid Height="{TemplateBinding Height}" Width="{TemplateBinding Width}"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Center">
+			  <Rectangle x:Name="borderStatic"
+						 Fill="{DynamicResource GroupTeacherButton.Static.Background}"
+						 Stroke="{DynamicResource GroupTeacherButton.Static.BorderBrush}"
+						 StrokeThickness="1"
+						 RadiusX="7.5"
+						 RadiusY="7.5"/>
+			  <Rectangle x:Name="borderMouseOver"
+						 Fill="{DynamicResource GroupTeacherButton.MouseOver.Background}"
+						 Stroke="{DynamicResource GroupTeacherButton.Static.BorderBrush}"
+						 StrokeThickness="1"
+						 Opacity="1"
+						 RadiusX="7.5"
+						 RadiusY="7.5"
+						 RenderTransform="scale(0)">
+				  <Rectangle.Transitions>
+					  <Transitions>
+						  <TransformOperationsTransition Property="RenderTransform"
+														 Duration="0:0:0.2"/>
+					  </Transitions>
+				  </Rectangle.Transitions>
+			  </Rectangle>
+			  <TextBlock Text="{Binding VisibleName}"
+						 x:Name="content"
+						 Margin="5,0,5,0"
+						 Foreground="{DynamicResource GroupTeacherButton.Static.Foreground}"
+						 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+						 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+						 TextWrapping="Wrap"/>
+			  <TextBlock Text="{Binding VisibleName}"
+						 x:Name="contentMouseOver"
+						 Margin="5,0,5,0"
+						 Foreground="{DynamicResource GroupTeacherButton.MouseOver.Foreground}"
+						 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+						 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+						 TextWrapping="Wrap"
+						 Opacity="0">
+				  <TextBlock.Transitions>
+					  <Transitions>
+						  <DoubleTransition Property="Opacity" Duration="0:0:0.2"/>
+					  </Transitions>
+				  </TextBlock.Transitions>
+			  </TextBlock>
+		  </Grid>
+      </ControlTemplate>
+    </Setter>
+
+	  <Setter Property="ToolTip.ServiceEnabled" Value="{Binding Description, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+	  <Setter Property="ToolTip.Placement" Value="Top"/>
+	  <Setter Property="ToolTip.VerticalOffset" Value="0"/>
+	  <Setter Property="ToolTip.Tip">
+		  <Template>
+			  <StackPanel MaxWidth="200"
+						  Orientation="Vertical">
+				  <Image MaxHeight="100"
+						 MaxWidth="100"
+						 VerticalAlignment="Center"
+						 HorizontalAlignment="Center"
+						 Stretch="UniformToFill"
+						 asyncImage:ImageLoader.Source="{Binding PhotoLink}">
+					  <Image.Clip>
+						  <EllipseGeometry RadiusX="45" RadiusY="45" Center="50,50"/>
+					  </Image.Clip>
+				  </Image>
+					<TextBlock Foreground="{DynamicResource TextBlock.Static.Foreground}"
+							   TextWrapping="Wrap"
+							   Text="{Binding Description}"
+							   TextAlignment="Center"/>
+			  </StackPanel>
+		  </Template>
+	  </Setter>
+	  
+	  <Style Selector="^:pointerover">
+		  <Style Selector="^ /template/ TextBlock#contentMouseOver">
+				<Setter Property="Opacity" Value="1"/>
+		  </Style>
+		  <Style Selector="^ /template/ Rectangle#borderMouseOver">
+			  <Setter Property="RenderTransform" Value="scale(1)"/>
+		  </Style>
+	  </Style>
+  </ControlTheme>
+</ResourceDictionary>

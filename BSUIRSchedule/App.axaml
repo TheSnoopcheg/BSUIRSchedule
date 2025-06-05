@@ -19,6 +19,7 @@
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceInclude Source="/Controls/VerticalSeparator.axaml"/>
 				<ResourceInclude Source="/Controls/RoundButton.axaml"/>
+				<ResourceInclude Source="/Controls/GroupTeacherButton.axaml"/>
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 		

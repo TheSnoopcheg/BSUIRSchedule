@@ -98,5 +98,11 @@
 		<SolidColorBrush x:Key="Calendar.DayButton.Selected.Background" Color="{StaticResource IISBlue}"/>
 		
 		<SolidColorBrush x:Key="TabItem.Selected.Underline" Color="{StaticResource TabItem.UnderLine}"/>
+		
+		<SolidColorBrush x:Key="GroupTeacherButton.Static.Foreground" Color="Black"/>
+		<SolidColorBrush x:Key="GroupTeacherButton.MouseOver.Foreground" Color="White"/>
+		<SolidColorBrush x:Key="GroupTeacherButton.Static.Background" Color="White"/>
+		<SolidColorBrush x:Key="GroupTeacherButton.MouseOver.Background" Color="{StaticResource IISBlue}"/>
+		<SolidColorBrush x:Key="GroupTeacherButton.Static.BorderBrush" Color="{StaticResource IISBlue}"/>
 	</Style.Resources>
 </Style>
