@@ -114,8 +114,15 @@ namespace BSUIRSchedule.ViewModels
                         if (Schedule != null)
                         {
                             AnnouncementWindow announcementWindow = new AnnouncementWindow();
-                            announcementWindow.DataContext = _announcementViewModel;
-                            _announcementViewModel.OnRequestClose += async (s, e) => { announcementWindow.Close(); await LoadScheduleAsync(_announcementViewModel.CommandUrl, LoadingType.Server); };
+                            announcementWindow.DataContext = _announcementViewModel; 
+                            EventHandler windowCloseHandler = null;
+                            windowCloseHandler = async (s, e) =>
+                            {
+                                announcementWindow.Close();
+                                await LoadScheduleAsync(_announcementViewModel.CommandUrl, LoadingType.Server);
+                                _announcementViewModel.OnRequestClose -= windowCloseHandler;
+                            };
+                            _announcementViewModel.OnRequestClose += windowCloseHandler;
                             if (App.Current!.ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime desktop) return;
                             await announcementWindow.ShowDialog(desktop.MainWindow!);
                         }
@@ -316,9 +323,9 @@ namespace BSUIRSchedule.ViewModels
         #endregion
         
         public MainViewModel(IMainModel mainWindowModel,
-                                   IScheduleSearchViewModel scheduleSearchViewModel,
-                                   IAnnouncementViewModel announcementViewModel,
-                                   INoteViewModel noteViewModel)
+                             IScheduleSearchViewModel scheduleSearchViewModel,
+                             IAnnouncementViewModel announcementViewModel,
+                             INoteViewModel noteViewModel)
         {
             
             _model = mainWindowModel;

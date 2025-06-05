@@ -40,7 +40,9 @@ namespace BSUIRSchedule.Models
         public async Task<bool> LoadScheduleAsync(string? url, LoadingType loadingType)
         {
             Schedule schedule = await _scheduleService.LoadScheduleAsync(url, loadingType);
-            if(schedule != null)
+
+            await schedule.CreateDailyLessonCollections();
+            if (schedule != null)
             {
                 if (loadingType != LoadingType.ServerWP)
                     Schedule = schedule;

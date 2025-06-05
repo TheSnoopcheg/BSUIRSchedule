@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System;
 using System.Threading.Tasks;
-using ReactiveUI;
 
 namespace BSUIRSchedule.ViewModels
 {

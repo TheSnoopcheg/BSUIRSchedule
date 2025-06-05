@@ -6,6 +6,7 @@
         xmlns:vm="using:BSUIRSchedule.ViewModels"
         xmlns:controls="using:BSUIRSchedule.Controls"
 		xmlns:types="using:BSUIRSchedule.Classes"
+		xmlns:converters="using:BSUIRSchedule.Converters"
 		mc:Ignorable="d"
         x:Class="BSUIRSchedule.Views.AnnouncementWindow"
 		Height="450"
@@ -47,18 +48,23 @@
 						   Foreground="{DynamicResource TextBlock.Static.Foreground}"
 						   HorizontalAlignment="Center"
 						   VerticalAlignment="Center"/>
-				<TextBlock Grid.Column="1"
+				<TextBlock Grid.Column="2"
 						   Text="{Binding Path=content}"
 						   Foreground="{DynamicResource TextBlock.Static.Foreground}"
 						   HorizontalAlignment="Center"
 						   VerticalAlignment="Center"
 						   TextWrapping="Wrap"/>
-				<TextBlock Grid.Column="1"
-						   Text="TODO: EMPLOYEE/GROUP"
-						   Foreground="{DynamicResource TextBlock.Static.Foreground}"
-						   HorizontalAlignment="Center"
-						   VerticalAlignment="Center"
-						   TextWrapping="Wrap"/>
+				<controls:GroupTeacherButtonPanel Grid.Column="3"
+												  VerticalAlignment="Center"
+												  HorizontalAlignment="Center"
+												  LoadCommand="{Binding $parent[Window].((vm:AnnouncementViewModel)DataContext).LoadScheduleCommand}">
+					<controls:GroupTeacherButtonPanel.ItemsSource>
+						<MultiBinding Converter="{x:Static converters:FuncConverters.GroupTeacherMultiConverter}" Mode="OneTime"> 
+							<Binding Path="$parent[Grid].((types:Announcement)DataContext)" Mode="OneTime"/>
+							<Binding Path="$parent[Window].((vm:AnnouncementViewModel)DataContext).IsEmployeeAnnouncement" Mode="OneTime"/>
+						</MultiBinding>
+					</controls:GroupTeacherButtonPanel.ItemsSource>
+				</controls:GroupTeacherButtonPanel>
 				
 			</Grid>
 		</DataTemplate>
@@ -170,6 +176,7 @@
 					<ItemsControl ItemsSource="{Binding Path=Announcements}"
 								  Theme="{StaticResource VerticalItemsControl}"
 								  Grid.Row="1"
+								  ItemTemplate="{StaticResource AnnouncementTemplate}"
 								  ScrollViewer.VerticalScrollBarVisibility="Auto">
 						<ItemsControl.ItemsPanel>
 							<ItemsPanelTemplate>
@@ -181,7 +188,8 @@
 					<StackPanel Orientation="Vertical"
 								Grid.Row="1"
 								VerticalAlignment="Center"
-								HorizontalAlignment="Center">
+								HorizontalAlignment="Center"
+								IsVisible="{Binding !Announcements.Count}">
 						<Path Fill="{DynamicResource Icon.Static.Stroke}"
 							  Stretch="Fill"
 							  Height="125"

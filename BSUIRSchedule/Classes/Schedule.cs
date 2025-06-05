@@ -55,7 +55,7 @@ namespace BSUIRSchedule.Classes
         {
             return GetName() ?? string.Empty;
         }
-        public async Task CreateDailyLessonConllections() => await Task.Run((System.Action)(() =>
+        public async Task CreateDailyLessonCollections() => await Task.Run((System.Action)(() =>
         {
             if(lessons != null && !lessons.IsEmpty)
             {

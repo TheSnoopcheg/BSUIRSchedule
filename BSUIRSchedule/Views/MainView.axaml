@@ -108,7 +108,7 @@
 										 Padding="0">
 									<Image asyncImage:ImageLoader.Source="{Binding Schedule.employee.photoLink}">
 										<Image.Clip>
-											<EllipseGeometry RadiusX="40" RadiusY="40" Center="40,50"/>
+											<EllipseGeometry RadiusX="45" RadiusY="45" Center="50,50"/>
 										</Image.Clip>
 									</Image>
 								</ToolTip>

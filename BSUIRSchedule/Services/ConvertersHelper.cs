@@ -33,18 +33,18 @@ public static class ConvertersHelper
     {
         return lesson switch
         {
-            { studentGroups: not null } => lesson.studentGroups.OrderBy(g => g.name).Select(g => new GroupTeacher
-            {
-                VisibleName = g.ToString(),
-                Description = GetStudentGroupDescription(g),
-                Url = g.urlId!
-            }),
             { employees: not null } => lesson.employees.Select(e => new GroupTeacher
             {
                 VisibleName = e.ToString(),
                 PhotoLink = e.photoLink,
                 Description = GetTeacherDescription(e),
                 Url = e.urlId!
+            }),
+            { studentGroups: not null } => lesson.studentGroups.OrderBy(g => g.name).Select(g => new GroupTeacher
+            {
+                VisibleName = g.ToString(),
+                Description = GetStudentGroupDescription(g),
+                Url = g.urlId!
             }),
             _ => null
         };
