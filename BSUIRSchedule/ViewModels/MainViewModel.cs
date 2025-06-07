@@ -288,6 +288,24 @@ namespace BSUIRSchedule.ViewModels
             }
         }
 
+        private void SetCurrentTab()
+        {
+            if (Schedule!.exams?.Count > 0 && DateTime.TryParse(Schedule!.startExamsDate, out DateTime startExamsDate)
+                && DateTime.TryParse(Schedule!.endExamsDate, out DateTime endExamsDate) && startExamsDate <= DateTime.Today
+                && endExamsDate >= DateTime.Today)
+            {
+                SelectedTab = 1;
+            }
+            else if (Schedule.previousDailyLessons?.Count > 0 && (Schedule.dailyLessons?.Count ?? 0) == 0)
+            {
+                SelectedTab = 2;
+            }
+            else
+            {
+                SelectedTab = 0;
+            }
+        }
+
         private async Task OnScheduleLoaded()
         {
             if (Schedule == null) return;
@@ -296,13 +314,7 @@ namespace BSUIRSchedule.ViewModels
             string? name = Schedule.GetName();
             this.RaisePropertyChanged(nameof(ScheduleNameCursor));
 
-            if (DateTime.TryParse(Schedule!.startExamsDate, out DateTime startExamsDate) && DateTime.TryParse(Schedule!.endExamsDate, out DateTime endExamsDate))
-            {
-                if (startExamsDate <= DateTime.Today && endExamsDate >= DateTime.Today)
-                    SelectedTab = 1;
-                else
-                    SelectedTab = 0;
-            }
+            SetCurrentTab();
 
             if (_model.IsScheduleFavorited(url!))
             {

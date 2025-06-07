@@ -41,9 +41,9 @@ namespace BSUIRSchedule.Models
         {
             Schedule schedule = await _scheduleService.LoadScheduleAsync(url, loadingType);
 
-            await schedule.CreateDailyLessonCollections();
             if (schedule != null)
             {
+                await schedule.CreateDailyLessonCollections();
                 if (loadingType != LoadingType.ServerWP)
                     Schedule = schedule;
                 else                                            // shitcoding

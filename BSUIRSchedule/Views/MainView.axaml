@@ -251,7 +251,7 @@
 						Margin="5,0,5,0"
 						SelectedIndex="{Binding Path=SelectedTab}">
 
-				<TabItem>
+				<TabItem IsVisible="{Binding Schedule, Converter={x:Static converters:FuncConverters.IsMainLessonsTabVisibleConverter}}">
 					<TabItem.Header>
 						<TextBlock Classes.current="{Binding Schedule.currentTerm, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
 							<TextBlock.Styles>
@@ -268,7 +268,7 @@
 						<!--TODO: SchedulePresenter-->
 					</TabItem.Content>
 				</TabItem>
-				<TabItem>
+				<TabItem IsVisible="{Binding Schedule, Converter={x:Static converters:FuncConverters.IsExamsTabVisibleConverter}}">
 					<TabItem.Header>
 						<TextBlock Text="{x:Static lang:Language.Exams}"/>
 					</TabItem.Header>
@@ -276,7 +276,7 @@
 						<!--TODO: ExamPresenter-->
 					</TabItem.Content>
 				</TabItem>
-				<TabItem>
+				<TabItem IsVisible="{Binding Schedule, Converter={x:Static converters:FuncConverters.IsPrevLessonsTabVisibleConverter}}">
 					<TabItem.Header>
 						<TextBlock Text="{Binding Path=Schedule.previousTerm}"/>
 					</TabItem.Header>

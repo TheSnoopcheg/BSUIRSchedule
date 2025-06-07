@@ -45,5 +45,29 @@ namespace BSUIRSchedule.Converters
                 if (collection[1] is not bool isEmpl) return null;
                 return ConvertersHelper.GetGroupTeacherCollectionFromAnn(ann, isEmpl);
             });
+        public static FuncValueConverter<Schedule, bool> IsExamsTabVisibleConverter { get; }
+            = new FuncValueConverter<Schedule, bool>(schedule =>
+            {
+                if(schedule == null) return false;
+                if (schedule.exams?.Count > 0)
+                    return true;
+                return false;
+            });
+        public static FuncValueConverter<Schedule, bool> IsPrevLessonsTabVisibleConverter { get; }
+            = new FuncValueConverter<Schedule, bool>(schedule =>
+            {
+                if(schedule == null) return false;
+                if (schedule.previousDailyLessons?.Count > 0 && !string.Equals(schedule.previousTerm, schedule.currentTerm, System.StringComparison.OrdinalIgnoreCase))
+                    return true;
+                return false;
+            });
+        public static FuncValueConverter<Schedule, bool> IsMainLessonsTabVisibleConverter { get; }
+            = new FuncValueConverter<Schedule, bool>(schedule =>
+            {
+                if(schedule == null) return false;
+                if (schedule.dailyLessons?.Count > 0)
+                    return true;
+                return false;
+            });
     }
 }
