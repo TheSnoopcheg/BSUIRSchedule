@@ -16,6 +16,8 @@
 		ExtendClientAreaChromeHints="NoChrome"
 		ShowInTaskbar="False"
 		CanResize="False"
+		PointerPressed="Window_PointerPressed"
+		KeyDown="Window_KeyDown"
 		x:DataType="vm:ScheduleSearchViewModel">
 	<Border Background="{DynamicResource Window.Static.Background}"
 			CornerRadius="10"
@@ -29,7 +31,7 @@
 						  MaxDropDownHeight="150"
 						  ItemsSource="{Binding Path=Responses}"
 						  Text="{Binding Path=Input}"
-						  SelectedItem="{Binding Path=SearchResponse}"
+						  SelectedItem="{Binding Path=SearchResponse, Mode=TwoWay}"
 						  TextChanged="SearchBox_TextChanged"
 						  ItemSelected="SearchBox_ItemSelected"/>			
 			

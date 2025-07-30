@@ -32,6 +32,13 @@
 		<Color x:Key="Calendar.DayButton.Foreground.Inactive">#FF777777</Color>
 
 		<Color x:Key="TabItem.UnderLine">#FF1890FF</Color>
+
+		<Color x:Key="ToolTip.BorderBrush">#FF888888</Color>
+		<Color x:Key="ToolTip.Background">#FFF0F8FF</Color>
+
+		<Color x:Key="ScrollBar.Background.Static">#FFBFBFBF</Color>
+		<Color x:Key="ScrollBar.Background.MouseOver">#FFBABABA</Color>
+		<Color x:Key="ScrollBar.Background.Pressed">#FFB5B5B5</Color>
 		
 		<SolidColorBrush x:Key="Window.Static.Background" Color="White"/>
 		<SolidColorBrush x:Key="Window.Static.Title" Color="{StaticResource IISBlue}"/>
@@ -104,5 +111,14 @@
 		<SolidColorBrush x:Key="GroupTeacherButton.Static.Background" Color="White"/>
 		<SolidColorBrush x:Key="GroupTeacherButton.MouseOver.Background" Color="{StaticResource IISBlue}"/>
 		<SolidColorBrush x:Key="GroupTeacherButton.Static.BorderBrush" Color="{StaticResource IISBlue}"/>
+		
+		<SolidColorBrush x:Key="ToolTip.Static.Background" Color="{StaticResource ToolTip.Background}"/>
+		<SolidColorBrush x:Key="ToolTip.Static.Foreground" Color="Black"/>
+		<SolidColorBrush x:Key="ToolTip.Static.BorderBrush" Color="{StaticResource ToolTip.BorderBrush}"/>
+		
+		<SolidColorBrush x:Key="ScrollBar.Static.Background" Color="{StaticResource ScrollBar.Background.Static}"/>
+		<SolidColorBrush x:Key="ScrollBar.MouseOver.Background" Color="{StaticResource ScrollBar.Background.MouseOver}"/>
+		<SolidColorBrush x:Key="ScrollBar.Pressed.Background" Color="{StaticResource ScrollBar.Background.Pressed}"/>
+		<SolidColorBrush x:Key="ScrollBar.Static" Color="{StaticResource ScrollBar.Background.Static}" Opacity="0.7"/>
 	</Style.Resources>
 </Style>

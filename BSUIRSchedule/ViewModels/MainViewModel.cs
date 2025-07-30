@@ -2,14 +2,16 @@
 using BSUIRSchedule.Models;
 using BSUIRSchedule.Services;
 using BSUIRSchedule.Views;
+using BSUIRSchedule.Controls;
+
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Threading.Tasks;
+
 using ReactiveUI;
 using Avalonia.Input;
 using Avalonia.Controls.ApplicationLifetimes;
-using BSUIRSchedule.Controls;
 
 namespace BSUIRSchedule.ViewModels
 {

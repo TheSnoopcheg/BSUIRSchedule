@@ -5,6 +5,7 @@ using System.Collections;
 using Avalonia.Input;
 using System;
 using Avalonia.Interactivity;
+using Avalonia.VisualTree;
 
 namespace BSUIRSchedule.Controls;
 
@@ -55,7 +56,7 @@ public partial class SearchBox : UserControl
     #region IsDropDownOpen
 
     public static readonly StyledProperty<bool> IsDropDownOpenProperty =
-        AvaloniaProperty.Register<SearchBox, bool>("IsDropDownOpen", false);
+        AvaloniaProperty.Register<SearchBox, bool>("IsDropDownOpen", false, defaultBindingMode: BindingMode.TwoWay);
     public bool IsDropDownOpen
     {
         get { return GetValue(IsDropDownOpenProperty); }
@@ -67,7 +68,7 @@ public partial class SearchBox : UserControl
     #region SelectedIndex
 
     public static readonly StyledProperty<int> SelectedIndexProperty =
-        AvaloniaProperty.Register<SearchBox, int>("SelectedIndex", -1, defaultBindingMode: BindingMode.TwoWay);
+        AvaloniaProperty.Register<SearchBox, int>("SelectedIndex", -1);
     public int SelectedIndex
     {
         get { return GetValue(SelectedIndexProperty); }
@@ -78,9 +79,9 @@ public partial class SearchBox : UserControl
 
     #region SelectedItem
 
-    public static readonly StyledProperty<object> SelectedItemProperty =
-        AvaloniaProperty.Register<SearchBox, object>("SelectedItem", null, defaultBindingMode: BindingMode.TwoWay);
-    public object SelectedItem
+    public static readonly StyledProperty<object?> SelectedItemProperty =
+        AvaloniaProperty.Register<SearchBox, object?>("SelectedItem", null);
+    public object? SelectedItem
     {
         get { return GetValue(SelectedItemProperty); }
         set { SetValue(SelectedItemProperty, value); }
@@ -99,7 +100,13 @@ public partial class SearchBox : UserControl
         listBox.AddHandler(InputElement.GotFocusEvent, listBox_OnGotFocus, RoutingStrategies.Bubble);
         this.AddHandler(InputElement.KeyDownEvent, SearchBox_OnPreviewKeyDown, RoutingStrategies.Tunnel);
 
-        searchTextBox.AttachedToVisualTree += (s, e) => searchTextBox.Focus();
+        searchTextBox.AttachedToVisualTree += TextBox_OnAttachedToVisualTree;
+    }
+
+    private void TextBox_OnAttachedToVisualTree(object? sender, VisualTreeAttachmentEventArgs e)
+    {
+        searchTextBox.Focus();
+        searchTextBox.AttachedToVisualTree -= TextBox_OnAttachedToVisualTree;
     }
 
     bool listFocused = false;
@@ -156,6 +163,19 @@ public partial class SearchBox : UserControl
             return;
         }
         e.Handled = true;
+    }
+
+    private void ListBoxItem_PointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        if (e.Properties.IsLeftButtonPressed)
+        {
+            if (e.Source is not InputElement element) return;
+            var item = element.FindAncestorOfType<ListBoxItem>();
+            if (item is null) return;
+            SelectedItem = item.DataContext;
+            this.RaiseEvent(new RoutedEventArgs { RoutedEvent = ItemSelectedEvent });
+            e.Handled = true;
+        }
     }
 
     #region TextChangedEvent

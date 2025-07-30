@@ -42,7 +42,7 @@ namespace BSUIRSchedule.Models
             {
                 Responses = await _networkService.GetAsync<ObservableCollection<SearchResponse>>($"https://iis.bsuir.by/api/v1/employees/fio?employee-fio={_input}");
             }
-            if(Responses.Count > 0)
+            if(Responses != null && Responses.Count > 0)
                 SearchResponse = Responses[0];
         }
 

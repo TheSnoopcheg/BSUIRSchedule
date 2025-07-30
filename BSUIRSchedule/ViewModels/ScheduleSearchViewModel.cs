@@ -2,7 +2,6 @@
 using BSUIRSchedule.Models;
 using ReactiveUI;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 
 namespace BSUIRSchedule.ViewModels
 {

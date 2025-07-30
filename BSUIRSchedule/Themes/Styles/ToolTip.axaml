@@ -1,0 +1,19 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Design.PreviewWith>
+    <Border Padding="20">
+		<ToolTip Width="100"
+				 Height="50">
+			
+		</ToolTip>
+    </Border>
+  </Design.PreviewWith>
+
+	<!--TODO (MAYBE): Shadow-->
+	
+	<Style Selector="ToolTip">
+		<Setter Property="Background" Value="{DynamicResource ToolTip.Static.Background}"/>
+		<Setter Property="Foreground" Value="{DynamicResource ToolTip.Static.Foreground}"/>
+		<Setter Property="BorderBrush" Value="{DynamicResource ToolTip.Static.BorderBrush}"/>
+	</Style>
+</Styles>

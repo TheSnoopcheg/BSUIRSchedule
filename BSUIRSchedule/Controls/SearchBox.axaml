@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:lang="clr-namespace:BSUIRSchedule.Langs"
+			 xmlns:controls="using:BSUIRSchedule.Controls"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="BSUIRSchedule.Controls.SearchBox"
 			 x:Name="root">
@@ -44,6 +45,22 @@
 			<Setter Property="Background" Value="{DynamicResource ListBox.Item.Static.Background}"/>
 			<Setter Property="FontSize" Value="12"/>
 			<Setter Property="Padding" Value="5,7"/>
+			<Setter Property="Template">
+				<ControlTemplate>
+					<ContentPresenter Name="PART_ContentPresenter"
+									  Background="{TemplateBinding Background}"
+									  BorderBrush="{TemplateBinding BorderBrush}"
+									  BorderThickness="{TemplateBinding BorderThickness}"
+									  CornerRadius="{TemplateBinding CornerRadius}"
+									  ContentTemplate="{TemplateBinding ContentTemplate}"
+									  Content="{TemplateBinding Content}"
+									  Padding="{TemplateBinding Padding}"
+									  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+									  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+									  PointerPressed="ListBoxItem_PointerPressed"/>
+				</ControlTemplate>
+			</Setter>
+			
 			<Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
 				<Setter Property="Background" Value="{DynamicResource ListBox.Item.Selected.Background}"/>
 				<Setter Property="BorderThickness" Value="1"/>
@@ -62,7 +79,8 @@
 	<Panel>
 		<Popup x:Name="popup"
 			   Placement="Bottom"
-			   IsOpen="{Binding ElementName=root, Path=IsDropDownOpen}">
+			   IsLightDismissEnabled="False"
+			   IsOpen="{Binding ElementName=root, Path=IsDropDownOpen, Mode=TwoWay}">
 			<Border x:Name="dropDownBorder"
 					Background="Transparent"
 					MaxHeight="{Binding MaxDropDownHeight, ElementName=root}">
@@ -76,8 +94,8 @@
 						 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
 						 ScrollViewer.VerticalScrollBarVisibility="Auto"
 						 ItemsSource="{Binding ItemsSource, ElementName=root}"
-						 SelectedIndex="{Binding SelectedIndex, ElementName=root}"
-						 SelectedItem="{Binding SelectedItem, ElementName=root}"/>
+						 SelectedIndex="{Binding SelectedIndex, ElementName=root, Mode=TwoWay}"
+						 SelectedItem="{Binding SelectedItem, ElementName=root, Mode=TwoWay}"/>
 			</Border>
 		</Popup>
 		<TextBox x:Name="searchTextBox"
